@@ -49,8 +49,8 @@ module.exports = (sequelize, DataTypes) => {
     createdBy: {
       type: DataTypes.BIGINT.UNSIGNED,
       references: {
-        model: 'Users',
-        key: 'id'
+        model: 'users',
+        key: 'user_id'
       },
       onDelete: 'SET NULL',
       allowNull: true
@@ -58,8 +58,8 @@ module.exports = (sequelize, DataTypes) => {
     updatedBy: {
       type: DataTypes.BIGINT.UNSIGNED,
       references: {
-        model: 'Users',
-        key: 'id'
+        model: 'users',
+        key: 'user_id'
       },
       onDelete: 'SET NULL',
       allowNull: true
@@ -73,11 +73,6 @@ module.exports = (sequelize, DataTypes) => {
       { fields: ['isActive'] }
     ]
   });
-
-  Announcement.associate = models => {
-    Announcement.belongsTo(models.User, { foreignKey: 'createdBy', as: 'creator' });
-    Announcement.belongsTo(models.User, { foreignKey: 'updatedBy', as: 'editor' });
-  };
 
   return Announcement;
 };

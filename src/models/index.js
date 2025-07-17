@@ -74,11 +74,65 @@ StripePaidSubscriptionModel.belongsTo(User, {
   as: 'user',
 });
 
-  StripeSubscriptionHistoriesModel.belongsTo(User, {
-    foreignKey: 'user_id',
-    as: 'user'
-  });
+StripeSubscriptionHistoriesModel.belongsTo(User, {
+  foreignKey: 'user_id',
+  as: 'user'
+});
 
+// Aithtoken associations
+User.hasMany(AuthToken, { foreignKey: 'userId', as: 'authTokens' });
+AuthToken.belongsTo(User, { foreignKey: 'userId', as: 'user' });
+
+// Announcement associations
+Announcement.belongsTo(User, { foreignKey: 'createdBy', as: 'creator' });
+Announcement.belongsTo(User, { foreignKey: 'updatedBy', as: 'editor' });
+User.hasMany(Announcement, { foreignKey: 'createdBy', as: 'createdAnnouncements' });
+User.hasMany(Announcement, { foreignKey: 'updatedBy', as: 'editedAnnouncements' });
+
+
+// ContactForm associations
+ContactForm.belongsTo(User, { foreignKey: 'userId', as: 'user' });
+User.hasMany(ContactForm, { foreignKey: 'userId', as: 'contactForms' });
+
+// CrashReport associations
+CrashReport.belongsTo(User, { foreignKey: 'userId', as: 'user' });
+User.hasMany(CrashReport, { foreignKey: 'userId', as: 'crashReports' });
+
+// Invoice associations
+Invoice.belongsTo(User, { foreignKey: 'userId', as: 'user' });
+Invoice.belongsTo(Transaction, { foreignKey: 'transactionId', as: 'transaction' });
+User.hasMany(Invoice, { foreignKey: 'userId', as: 'invoices' });
+Transaction.hasMany(Invoice, { foreignKey: 'transactionId', as: 'invoices' });
+
+// Country associations
+Country.hasMany(User, { foreignKey: 'countryId', as: 'users' });
+User.belongsTo(Country, { foreignKey: 'countryId', as: 'country' });
+
+// LoginHistory associations
+LoginHistory.belongsTo(User, { foreignKey: 'userId', as: 'user' });
+User.hasMany(LoginHistory, { foreignKey: 'userId', as: 'loginHistories' });
+
+// Notification associations
+Notification.belongsTo(User, { foreignKey: 'userId', as: 'recipient' });
+Notification.belongsTo(User, { foreignKey: 'createdBy', as: 'creator' });
+User.hasMany(Notification, { foreignKey: 'userId', as: 'receivedNotifications' });
+User.hasMany(Notification, { foreignKey: 'createdBy', as: 'createdNotifications' });
+
+// StaticContent associations
+StaticContent.belongsTo(User, { foreignKey: 'publishedBy', as: 'publisher' });
+User.hasMany(StaticContent, { foreignKey: 'publishedBy', as: 'publishedContent' });
+
+// Subscriber associations
+Subscriber.belongsTo(User, { foreignKey: 'userId', as: 'user' });
+User.hasMany(Subscriber, { foreignKey: 'userId', as: 'subscriptions' });
+
+// Transaction associations
+Transaction.belongsTo(User, { foreignKey: 'userId', as: 'user' });
+User.hasMany(Transaction, { foreignKey: 'userId', as: 'transactions' });
+
+// Category and FAQ associations
+Category.hasMany(Faq, { foreignKey: 'categoryId', as: 'faqs' });
+Faq.belongsTo(Category, { foreignKey: 'categoryId', as: 'category' });
 
 module.exports = {
   sequelize,

@@ -7,11 +7,11 @@ module.exports = (sequelize, DataTypes) => {
         primaryKey: true,
       },
       uploader_id: {
-        type: DataTypes.UUID,
+        type: DataTypes.BIGINT.UNSIGNED,
         allowNull: false,
         references: {
           model: 'users',
-          key: 'user_id',
+          key: 'user_id', // Changed from 'user_id' to 'id' to match your User model
         },
       },
       title: {
@@ -31,7 +31,7 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
       },
       file_path: {
-        type: DataTypes.STRING(1024),
+        type: DataTypes.STRING(768), // Reduced from 1024 to 768 to fit within MySQL key limit
         allowNull: false,
         unique: 'uq_file_path',
       },
@@ -57,14 +57,6 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.ENUM('Uploading', 'Processing', 'Completed', 'Failed'),
         allowNull: false,
         defaultValue: 'Uploading',
-      },
-      created_at: {
-        type: DataTypes.DATE,
-        allowNull: false,
-      },
-      updated_at: {
-        type: DataTypes.DATE,
-        allowNull: false,
       },
     },
     {

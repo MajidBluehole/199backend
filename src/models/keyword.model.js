@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
     allowNull: false,
     references: {
       model: 'organizations',
-      key: 'id',
+      key: 'organization_id',
     },
   },
   keywordText: {

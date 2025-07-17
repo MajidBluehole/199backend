@@ -15,13 +15,5 @@ module.exports = (sequelize, DataTypes) => {
     timestamps: false,
   });
 
-  // Optional: Define reverse association if needed
-  Country.associate = (models) => {
-    Country.hasMany(models.User, {
-      foreignKey: "countryId",
-      as: "users",
-    });
-  };
-
   return Country;
 };

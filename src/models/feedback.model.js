@@ -7,7 +7,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
     },
     user_id: {
-      type: DataTypes.UUID,
+      type: DataTypes.BIGINT.UNSIGNED,
       allowNull: true,
       references: {
         model: 'users', // Table name for the User model

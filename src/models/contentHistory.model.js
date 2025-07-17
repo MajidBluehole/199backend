@@ -27,7 +27,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: true,
     },
     change_author_id: {
-      type: DataTypes.UUID,
+      type: DataTypes.BIGINT.UNSIGNED,
       allowNull: false,
       references: {
         model: 'users',

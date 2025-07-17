@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
     allowNull: false,
     references: {
       model: 'organizations',
-      key: 'id'
+      key: 'organization_id'
     }
   },
   sourceType: {
@@ -49,11 +49,11 @@ module.exports = (sequelize, DataTypes) => {
     allowNull: true
   },
   createdByUserId: {
-    type: DataTypes.UUID,
+    type: DataTypes.BIGINT.UNSIGNED,
     allowNull: false,
     references: {
       model: 'users',
-      key: 'id'
+      key: 'user_id'
     }
   }
 }, {

@@ -9,8 +9,8 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.BIGINT.UNSIGNED,
       allowNull: true,
       references: {
-        model: 'Users',
-        key: 'id'
+        model: 'users',
+        key: 'user_id'
       },
       onDelete: 'SET NULL'
     },
@@ -65,8 +65,8 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.BIGINT.UNSIGNED,
       allowNull: true,
       references: {
-        model: 'Users',
-        key: 'id'
+        model: 'users',
+        key: 'user_id'
       },
       onDelete: 'SET NULL'
     }
@@ -80,11 +80,6 @@ module.exports = (sequelize, DataTypes) => {
       { fields: ['type'] }
     ]
   });
-
-  Notification.associate = models => {
-    Notification.belongsTo(models.User, { foreignKey: 'userId', as: 'recipient' });
-    Notification.belongsTo(models.User, { foreignKey: 'createdBy', as: 'creator' });
-  };
 
   return Notification;
 };

@@ -29,8 +29,8 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.BIGINT.UNSIGNED,
       allowNull: true,
       references: {
-        model: 'Users',
-        key: 'id'
+        model: 'users',
+        key: 'user_id'
       },
       onDelete: 'SET NULL'
     }
@@ -38,10 +38,6 @@ module.exports = (sequelize, DataTypes) => {
     tableName: 'StaticContents',
     timestamps: true
   });
-
-  StaticContent.associate = models => {
-    StaticContent.belongsTo(models.User, { foreignKey: 'publishedBy', as: 'publisher' });
-  };
 
   return StaticContent;
 };

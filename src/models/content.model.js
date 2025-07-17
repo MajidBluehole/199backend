@@ -24,7 +24,7 @@ module.exports = (sequelize, DataTypes) => {
       defaultValue: 'DRAFT'
     },
     author_id: {
-      type: DataTypes.UUID,
+      type: DataTypes.BIGINT.UNSIGNED,
       allowNull: false,
       references: {
         model: 'users',
@@ -40,7 +40,7 @@ module.exports = (sequelize, DataTypes) => {
       }
     },
     submitted_by_id: {
-      type: DataTypes.UUID,
+      type: DataTypes.BIGINT.UNSIGNED,
       allowNull: true,
       references: {
         model: 'users',
@@ -70,7 +70,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: true
     },
     locked_by_user_id: {
-      type: DataTypes.UUID,
+      type: DataTypes.BIGINT.UNSIGNED,
       allowNull: true,
       references: {
         model: 'users',

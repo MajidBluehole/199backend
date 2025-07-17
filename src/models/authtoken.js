@@ -9,8 +9,8 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.BIGINT.UNSIGNED,
       allowNull: false,
       references: {
-        model: 'Users',
-        key: 'id'
+        model: 'users',
+        key: 'user_id'
       },
       onDelete: 'CASCADE'
     },
@@ -37,10 +37,6 @@ module.exports = (sequelize, DataTypes) => {
       { fields: ['userId'] }
     ]
   });
-
-  AuthToken.associate = models => {
-    AuthToken.belongsTo(models.User, { foreignKey: 'userId', as: 'user' });
-  };
 
   return AuthToken;
 };

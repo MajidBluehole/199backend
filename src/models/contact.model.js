@@ -12,12 +12,12 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       field: 'workspace_id',
       references: {
-        model: 'workspaces', // table name
+        model: 'workspaces',
         key: 'workspace_id',
-      },
+      }
     },
     userId: {
-      type: DataTypes.UUID,
+      type: DataTypes.BIGINT.UNSIGNED,
       allowNull: false,
       field: 'user_id',
       references: {

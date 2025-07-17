@@ -7,7 +7,7 @@ module.exports = (sequelize, DataTypes) => {
     allowNull: false
   },
   user_id: {
-    type: DataTypes.UUID,
+    type: DataTypes.BIGINT.UNSIGNED,
     allowNull: false,
     references: {
       model: 'users',

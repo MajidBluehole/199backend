@@ -9,8 +9,8 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.BIGINT.UNSIGNED,
       allowNull: true,
       references: {
-        model: 'Users', // assumes there's a Users table
-        key: 'id'
+        model: 'users', // assumes there's a Users table
+        key: 'user_id'
       },
       onDelete: 'SET NULL'
     },
@@ -86,13 +86,6 @@ module.exports = (sequelize, DataTypes) => {
       { fields: ['occurredAt'] }
     ]
   });
-
-  CrashReport.associate = (models) => {
-    CrashReport.belongsTo(models.User, {
-      foreignKey: 'userId',
-      as: 'user'
-    });
-  };
 
   return CrashReport;
 };

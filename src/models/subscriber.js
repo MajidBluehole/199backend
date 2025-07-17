@@ -17,8 +17,8 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.BIGINT.UNSIGNED,
       allowNull: true,
       references: {
-        model: 'Users',
-        key: 'id'
+        model: 'users',
+        key: 'user_id'
       },
       onDelete: 'SET NULL'
     },
@@ -76,10 +76,6 @@ module.exports = (sequelize, DataTypes) => {
       { fields: ['createdAt'] }
     ]
   });
-
-  Subscriber.associate = models => {
-    Subscriber.belongsTo(models.User, { foreignKey: 'userId', as: 'user' });
-  };
 
   return Subscriber;
 };

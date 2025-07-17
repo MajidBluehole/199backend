@@ -1,9 +1,19 @@
 module.exports = (sequelize, DataTypes) => {
+
   const User = sequelize.define("User", {
-    id: {
+    user_id: {
       type: DataTypes.BIGINT.UNSIGNED,
       autoIncrement: true,
       primaryKey: true,
+    },
+    workspaceId: {
+      type: DataTypes.UUID,
+      allowNull: true,
+      references: {
+        model: 'workspaces', // table name
+        key: 'workspace_id',
+      },
+      field: 'workspace_id'
     },
     stripe_customer_id: {
       type: DataTypes.STRING,
@@ -68,17 +78,15 @@ module.exports = (sequelize, DataTypes) => {
       defaultValue: false,
     },
   }, {
-    tableName: "Users",
-    timestamps: true,
+    // tableName: "users",
+    // timestamps: true,
+
+  sequelize,
+  modelName: 'User',
+  tableName: 'users',
+  timestamps: true, // Enables createdAt and updatedAt
+  paranoid: true,   // Enables soft deletes by using deletedAt
+  underscored: false, // Fields are explicitly mapped, so this is not strictly needed but good practice to be explicit
   });
-
-  // Associate using models parameter
-  User.associate = (models) => {
-    User.belongsTo(models.Country, {
-      foreignKey: "countryId",
-      as: "country",
-    });
-  };
-
   return User;
 };

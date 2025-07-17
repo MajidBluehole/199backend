@@ -38,8 +38,8 @@ module.exports = (sequelize, DataTypes) => {
     userId: {
       type: DataTypes.BIGINT.UNSIGNED,
       references: {
-        model: 'Users',
-        key: 'id'
+        model: "users",
+        key: 'user_id'
       },
       onDelete: 'SET NULL',
       allowNull: true
@@ -68,9 +68,6 @@ module.exports = (sequelize, DataTypes) => {
     ]
   });
 
-  ContactForm.associate = models => {
-    ContactForm.belongsTo(models.User, { foreignKey: 'userId', as: 'user' });
-  };
 
   return ContactForm;
 };

@@ -8,7 +8,7 @@ module.exports = (sequelize, DataTypes) => {
       field: 'integration_id',
     },
     userId: {
-      type: DataTypes.UUID,
+      type: DataTypes.BIGINT.UNSIGNED,
       allowNull: false,
       field: 'user_id',
       references: {
