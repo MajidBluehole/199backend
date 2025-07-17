@@ -102,7 +102,7 @@ const twitterCallbackHandler = async (req, res) => {
             }
 
             // Generate JWT token for the user
-            const token = jwt.sign({ id: user.id, role: user.role }, process.env.JWT_SECRET, {
+            const token = jwt.sign({ id: user.user_id, role: user.role }, process.env.JWT_SECRET, {
                 expiresIn: '24h',
             });
 

@@ -98,14 +98,14 @@ exports.registerUser = async (req, res) => {
             return res.status(201).json({
                 status: 'success',
                 message: 'Registration successful. OTP sent to your phone. Please verify your phone number.',
-                userId: newUser.id
+                userId: newUser.user_id
             });
         } else {
             await sendVerificationEmail(email, verificationToken);
             return res.status(201).json({
                 status: 'success',
                 message: 'Registration successful. Please check your email to verify your account.',
-                userId: newUser.id
+                userId: newUser.user_id
             });
         }
     } catch (error) {

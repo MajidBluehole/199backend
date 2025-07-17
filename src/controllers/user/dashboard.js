@@ -1,5 +1,3 @@
-const { User } = require('../../models/User');
-
 exports.getUserDashboard = async (req, res) => {
   try {
     const { firstName, lastName, lastLogin } = req.user;

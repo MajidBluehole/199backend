@@ -115,7 +115,7 @@ exports.createUser = async (req, res) => {
     });
 
     await newUser.save();
-    res.status(201).json({ success: true, message: 'User created successfully', userId: newUser.id });
+    res.status(201).json({ success: true, message: 'User created successfully', userId: newUser.user_id });
   } catch (err) {
     res.status(500).json({ success: false, message: 'User creation failed' });
   }

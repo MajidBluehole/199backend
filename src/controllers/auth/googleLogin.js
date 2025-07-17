@@ -63,13 +63,13 @@ exports.googleLoginHandler = async (req, res) => {
 
         // Generate JWT token
         const token = jwt.sign(
-            { id: user.id, role: user.role },
+            { id: user.user_id, role: user.role },
             process.env.JWT_SECRET,
             { expiresIn: process.env.JWT_EXPIRES_IN || '24h' }
         );
 
         await AuthToken.create({
-            userId: user.id,
+            userId: user.user_id,
             token,
             expiresAt: new Date(Date.now() + 24 * 60 * 60 * 1000),
             ipAddress: req.ip,
@@ -80,7 +80,7 @@ exports.googleLoginHandler = async (req, res) => {
             success: true,
             message: 'Login successful',
             user: {
-                id: user.id,
+                id: user.user_id,
                 email: user.email,
                 firstName: user.firstName,
                 lastName: user.lastName,

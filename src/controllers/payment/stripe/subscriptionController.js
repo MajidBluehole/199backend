@@ -303,7 +303,7 @@ exports.Subscribe = async (req, res) => {
 
   try {
     // Fetch the user's email
-    let user = await User.findOne({ where: { id: user_id } });
+    let user = await User.findOne({ where: { user_id: user_id } });
     if (!user) {
       return res.status(404).send('User not found');
     }
