@@ -1,29 +1,5 @@
-import { Model, DataTypes, Sequelize } from 'sequelize';
-
-
-export class FeedbackToTag extends Model {
-  public feedback_id!: string;
-  public tag_id!: number;
-
-  
-  public static associate(models: any) {
-    // Defines the relationship to the Feedback model
-    this.belongsTo(models.Feedback, {
-      foreignKey: 'feedback_id',
-      onDelete: 'CASCADE',
-    });
-
-    // Defines the relationship to the FeedbackTag model
-    this.belongsTo(models.FeedbackTag, {
-      foreignKey: 'tag_id',
-      onDelete: 'CASCADE',
-    });
-  }
-}
-
-
-export default function (sequelize: Sequelize): typeof FeedbackToTag {
-  FeedbackToTag.init(
+module.exports = (sequelize, DataTypes) => {
+  const FeedbackToTag = sequelize.define('FeedbackToTag', 
     {
       feedback_id: {
         type: DataTypes.UUID,
@@ -62,6 +38,5 @@ export default function (sequelize: Sequelize): typeof FeedbackToTag {
       ],
     }
   );
-
   return FeedbackToTag;
-}
+};

@@ -1,35 +1,5 @@
-import { DataTypes, Model, Optional, Sequelize } from 'sequelize';
-
-// We recommend creating a central sequelize instance and importing it here
-// import sequelize from '../config/database'; 
-
-// This is a placeholder for the real sequelize instance
-const sequelize = new Sequelize('mysql::memory:'); 
-
-
-interface TagAttributes {
-  tagId: string;
-  tagName: string;
-  name: string;
-  createdAt?: Date;
-  updatedAt?: Date;
-}
-
-
-interface TagCreationAttributes extends Optional<TagAttributes, 'tagId' | 'createdAt' | 'updatedAt'> {}
-
-
-class Tag extends Model<TagAttributes, TagCreationAttributes> implements TagAttributes {
-  public tagId!: string;
-  public tagName!: string;
-  public name!: string;
-
-  // Timestamps
-  public readonly createdAt!: Date;
-  public readonly updatedAt!: Date;
-}
-
-Tag.init(
+module.exports = (sequelize, DataTypes) => {
+  const Tag = sequelize.define('Tag', 
   {
     tagId: {
       type: DataTypes.UUID,
@@ -71,5 +41,5 @@ Tag.init(
     underscored: true,     // Use snake_case for column names in the database
   }
 );
-
-export default Tag;
+  return Tag;
+};

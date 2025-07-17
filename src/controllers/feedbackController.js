@@ -1,4 +1,4 @@
-const pool = require('../config/db'); // Assuming a mysql2/promise connection pool
+const pool = require('../config/database'); // Assuming a mysql2/promise connection pool
 
 
 exports.getFeedback = async (req, res, next) => {

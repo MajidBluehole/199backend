@@ -1,4 +1,4 @@
-const db = require('../../config/db'); // Assuming a db connection pool utility
+const db = require('../config/database'); // Assuming a db connection pool utility
 
 
 const getFeedbackContext = async (req, res) => {

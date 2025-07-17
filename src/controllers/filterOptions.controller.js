@@ -1,4 +1,4 @@
-const db = require('../../config/database'); // Assuming a database connection module
+const db = require('../config/database'); // Assuming a database connection module
 
 
 const getGroupedFilterOptions = async (req, res) => {

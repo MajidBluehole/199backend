@@ -25,11 +25,10 @@ const { getInteractionTypesController } = require('./controllers/getInteractionT
 const { getKnowledgeBaseFilters } = require('./controllers/knowledgeBaseFilters.controller.js');
 const { getSystemConnections } = require('./controllers/systemConnectionsController.js');
 const { handleUploadErrors } = require('./controllers/knowledgeContent.controller.js');
-const { removeTagFromFeedback } = require('./controllers/feedback.controller.js');
+const { submitFeedback, removeTagFromFeedback } = require('./controllers/feedback.controller.js');
 const { reorderItems } = require('./controllers/adminReorder.controller.js');
 const { searchContacts } = require('./controllers/searchContacts.js');
 const { searchKnowledgeContent } = require('./controllers/knowledgeContent.controller.js');
-const { submitFeedback } = require('./controllers/feedback.controller.js');
 const { updateCustomField } = require('./controllers/adminCustomFieldsController.js');
 const { updateFeedbackStatus } = require('./controllers/feedbackStatusController.js');
 const { updateKnowledgeContent } = require('./controllers/updateKnowledgeContent.js');
@@ -70,54 +69,50 @@ app.use("/api/admin", require("./routes/admin"));
 app.use("/api/stripe-payment-subscriptions", require("./routes/stripePaymentSubscriptionsRoutes"));
 app.use("/api/faq", require("./routes/faq"));
 // === Controller Routes (auto-generated) ===
+// app.get('/api/v1/admin/interaction-types', authenticate, getInteractionTypesController);
+// === Interactions ===
 app.post('/api/v1/interactions', authenticate, createInteraction);
-app.get('/api/v1/contacts/search', authenticate, searchContacts);
-app.get('/api/v1/system/connections', authenticate, getSystemConnections);
-app.get('/api/v1/feedback/reasons', authenticate, getFeedbackReasons);
-app.get('/api/v1/feedback/context/{recommendation_id}', authenticate, getFeedbackContext);
-app.get('/api/v1/knowledge-base/filters', authenticate, getKnowledgeBaseFilters);
-app.get('/api/v1/status/desktop-app', authenticate, getDesktopAppStatus);
-app.put('/api/v1/knowledge-base/content/:contentId', authenticate, updateKnowledgeContent);
-app.get('/api/v1/knowledge-base/content/:contentId', authenticate, getContentById);
-app.delete('/api/v1/knowledge-base/content/:contentId', authenticate, deleteContent);
-app.get('/api/v1/admin/interaction-types', authenticate, getInteractionTypesController);
-app.get('/api/v1/knowledge-base/content/{contentId}/download', authenticate, getDownloadUrl);
-app.delete('/api/v1/admin/interaction-types/:id', authenticate, deleteInteractionType);
-app.get('/api/v1/admin/custom-fields', authenticate, getCustomFields);
+app.get('/api/v1/admin/interaction-types', authenticate, getInteractionTypesController.handleRequest);
 app.post('/api/v1/admin/interaction-types', authenticate, createInteractionType);
-app.post('/api/v1/feedback', authenticate, removeTagFromFeedback);
-app.post('/api/v1/feedback', authenticate, submitFeedback);
-app.delete('/api/v1/feedback/:feedbackId/tags/:tagId', authenticate, removeTagFromFeedback);
-app.delete('/api/v1/feedback/:feedbackId/tags/:tagId', authenticate, submitFeedback);
-app.post('/api/v1/feedback', authenticate, removeTagFromFeedback);
-app.post('/api/v1/feedback', authenticate, submitFeedback);
-app.delete('/api/v1/feedback/:feedbackId/tags/:tagId', authenticate, removeTagFromFeedback);
-app.delete('/api/v1/feedback/:feedbackId/tags/:tagId', authenticate, submitFeedback);
+app.delete('/api/v1/admin/interaction-types/:id', authenticate, deleteInteractionType);
+
+// === Contacts ===
+app.get('/api/v1/contacts/search', authenticate, searchContacts);
+
+// === System ===
+app.get('/api/v1/system/connections', authenticate, getSystemConnections);
+app.get('/api/v1/status/desktop-app', authenticate, getDesktopAppStatus);
+
+// === Feedback ===
+app.get('/api/v1/feedback/reasons', authenticate, getFeedbackReasons);
+app.get('/api/v1/feedback/context/:recommendation_id', authenticate, getFeedbackContext);
 app.get('/api/v1/feedback', authenticate, getFeedback);
-app.post('/api/v1/knowledge-base/content', authenticate, searchKnowledgeContent);
-app.post('/api/v1/knowledge-base/content', authenticate, uploadContent);
-app.post('/api/v1/knowledge-base/content', authenticate, uploadMiddleware);
-app.post('/api/v1/knowledge-base/content', authenticate, handleUploadErrors);
+app.post('/api/v1/feedback', authenticate, submitFeedback);
+app.delete('/api/v1/feedback/:feedbackId/tags/:tagId', authenticate, removeTagFromFeedback);
+app.patch('/api/v1/feedback/status', authenticate, updateFeedbackStatus);
+app.get('/api/v1/feedback/filters', authenticate, getFeedbackFilters);
+app.post('/api/v1/feedback/tags', authenticate, addTagsToFeedback);
+
+// === Analytics ===
+app.get('/api/v1/analytics/feedback/summary', authenticate, getFeedbackSummary);
+
+// === Knowledge Base ===
+app.get('/api/v1/knowledge-base/filters', authenticate, getKnowledgeBaseFilters);
 app.get('/api/v1/knowledge-base/content', authenticate, searchKnowledgeContent);
-app.get('/api/v1/knowledge-base/content', authenticate, uploadContent);
-app.get('/api/v1/knowledge-base/content', authenticate, uploadMiddleware);
-app.get('/api/v1/knowledge-base/content', authenticate, handleUploadErrors);
-app.post('/api/v1/knowledge-base/content', authenticate, searchKnowledgeContent);
-app.post('/api/v1/knowledge-base/content', authenticate, uploadContent);
-app.post('/api/v1/knowledge-base/content', authenticate, uploadMiddleware);
-app.post('/api/v1/knowledge-base/content', authenticate, handleUploadErrors);
-app.get('/api/v1/knowledge-base/content', authenticate, searchKnowledgeContent);
-app.get('/api/v1/knowledge-base/content', authenticate, uploadContent);
-app.get('/api/v1/knowledge-base/content', authenticate, uploadMiddleware);
-app.get('/api/v1/knowledge-base/content', authenticate, handleUploadErrors);
+app.get('/api/v1/knowledge-base/content/:contentId', authenticate, getContentById);
+app.put('/api/v1/knowledge-base/content/:contentId', authenticate, updateKnowledgeContent);
+app.delete('/api/v1/knowledge-base/content/:contentId', authenticate, deleteContent);
+app.get('/api/v1/knowledge-base/content/:contentId/download', authenticate, getDownloadUrl);
+
+// File upload-related routes (ensure middleware order is correct)
+app.post('/api/v1/knowledge-base/content', authenticate, uploadMiddleware, handleUploadErrors, uploadContent);
+
+// === Admin - Custom Fields & Filters ===
+app.get('/api/v1/admin/custom-fields', authenticate, getCustomFields);
+app.post('/api/v1/admin/custom-fields', authenticate, createCustomField);
+app.put('/api/v1/admin/custom-fields/:id', authenticate, updateCustomField);
 app.get('/api/v1/admin/filter-options', authenticate, getGroupedFilterOptions);
 app.post('/api/v1/admin/:itemType/reorder', authenticate, reorderItems);
-app.get('/api/v1/feedback/filters', authenticate, getFeedbackFilters);
-app.post('/api/v1/admin/custom-fields', authenticate, createCustomField);
-app.patch('/api/v1/feedback/status', authenticate, updateFeedbackStatus);
-app.put('/api/v1/admin/custom-fields/{id}', authenticate, updateCustomField);
-app.get('/api/v1/analytics/feedback/summary', authenticate, getFeedbackSummary);
-app.post('/api/v1/feedback/tags', authenticate, addTagsToFeedback);
 sequelize.sync({ alter: true }).then(async () => {
   console.log("✅ DB synced");
   // Seed countries

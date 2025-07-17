@@ -1,4 +1,4 @@
-const db = require('../../config/db'); // Assuming a db connection pool module
+const db = require('../config/database'); // Assuming a db connection pool module
 
 
 const searchContacts = async (req, res) => {

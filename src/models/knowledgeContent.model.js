@@ -1,52 +1,5 @@
-import { DataTypes, Model, Optional, Sequelize } from 'sequelize';
-
-// We recommend you declare an interface for your model's attributes
-interface KnowledgeContentAttributes {
-  content_id: string;
-  uploader_id: string;
-  title: string;
-  description: string | null;
-  content_type: 'Sales Sheet' | 'Technical Doc' | 'Case Study' | 'Presentation' | 'Other';
-  file_name: string;
-  file_path: string;
-  file_size: number;
-  file_mime_type: string;
-  view_count: number;
-  download_count: number;
-  upload_status: 'Uploading' | 'Processing' | 'Completed' | 'Failed';
-  readonly created_at: Date;
-  readonly updated_at: Date;
-}
-
-// Some attributes are optional in `Model.create()` or `Model.build()`
-interface KnowledgeContentCreationAttributes extends Optional<KnowledgeContentAttributes, 'content_id' | 'description' | 'view_count' | 'download_count' | 'upload_status' | 'created_at' | 'updated_at'> {}
-
-export class KnowledgeContent extends Model<KnowledgeContentAttributes, KnowledgeContentCreationAttributes> implements KnowledgeContentAttributes {
-  public content_id!: string;
-  public uploader_id!: string;
-  public title!: string;
-  public description!: string | null;
-  public content_type!: 'Sales Sheet' | 'Technical Doc' | 'Case Study' | 'Presentation' | 'Other';
-  public file_name!: string;
-  public file_path!: string;
-  public file_size!: number;
-  public file_mime_type!: string;
-  public view_count!: number;
-  public download_count!: number;
-  public upload_status!: 'Uploading' | 'Processing' | 'Completed' | 'Failed';
-
-  // timestamps!
-  public readonly created_at!: Date;
-  public readonly updated_at!: Date;
-
-  public static associate(models: any) {
-    // define association here
-    this.belongsTo(models.User, { foreignKey: 'uploader_id', as: 'uploader' });
-  }
-}
-
-export default function (sequelize: Sequelize): typeof KnowledgeContent {
-  KnowledgeContent.init(
+module.exports = (sequelize, DataTypes) => {
+  const KnowledgeContent = sequelize.define('KnowledgeContent', 
     {
       content_id: {
         type: DataTypes.UUID,
@@ -127,4 +80,4 @@ export default function (sequelize: Sequelize): typeof KnowledgeContent {
     }
   );
   return KnowledgeContent;
-}
+};

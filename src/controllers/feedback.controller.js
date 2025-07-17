@@ -1,4 +1,4 @@
-const db = require('../config/db'); // Assuming a db connection pool module using mysql2/promise
+const db = require('../config/database'); // Assuming a db connection pool module using mysql2/promise
 const { v4: uuidv4 } = require('uuid');
 
 
@@ -100,14 +100,10 @@ const submitFeedback = async (req, res) => {
     }
 };
 
-module.exports = {
-    submitFeedback
-};
-
-const db = require('../config/db'); // Assuming a database connection pool is exported
 
 
-exports.removeTagFromFeedback = async (req, res) => {
+
+const removeTagFromFeedback = async (req, res) => {
     const { feedbackId, tagId } = req.params;
 
     try {
@@ -130,4 +126,9 @@ exports.removeTagFromFeedback = async (req, res) => {
         // Check for foreign key constraint errors or other specific DB errors if needed
         res.status(500).json({ message: 'Internal Server Error' });
     }
+};
+
+module.exports = {
+    submitFeedback,
+    removeTagFromFeedback
 };

@@ -2,7 +2,8 @@ const { v4: uuidv4 } = require('uuid');
 const multer = require('multer');
 const path = require('path');
 const fs = require('fs').promises;
-const db = require('../config/db'); // Assuming a mysql2/promise connection pool
+const db = require('../config/database'); // Assuming a mysql2/promise connection pool
+const pool = require('../config/database'); // Assuming a mysql2/promise connection pool
 
 // --- Mock S3 Service (in a real app, this would be in its own file) ---
 const s3UploadService = {
@@ -164,16 +165,13 @@ const handleUploadErrors = (err, req, res, next) => {
     next();
 };
 
-module.exports = {
-    uploadContent,
-    uploadMiddleware,
-    handleUploadErrors
-};
-
-const pool = require('../../config/database'); // Assuming a mysql2/promise connection pool
 
 
-exports.searchKnowledgeContent = async (req, res) => {
+
+
+// exports.searchKnowledgeContent = async (req, res) => {
+
+    const searchKnowledgeContent = async (req, res) => {
     const { 
         search, 
         contentType, 
@@ -341,4 +339,11 @@ exports.searchKnowledgeContent = async (req, res) => {
         console.error('Error searching knowledge content:', error);
         res.status(500).json({ message: 'Internal Server Error' });
     }
+};
+
+module.exports = {
+    uploadContent,
+    uploadMiddleware,
+    handleUploadErrors,
+    searchKnowledgeContent
 };

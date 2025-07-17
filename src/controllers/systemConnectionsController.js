@@ -1,4 +1,4 @@
-const db = require('../../config/db'); // Assuming a mysql2 promise pool is exported
+const db = require('../config/database'); // Assuming a mysql2 promise pool is exported
 
 
 const getSystemConnections = async (req, res) => {

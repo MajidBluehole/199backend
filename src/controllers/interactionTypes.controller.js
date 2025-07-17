@@ -1,6 +1,5 @@
-const pool = require('../../config/db'); // Assuming a mysql2 connection pool is exported
+const pool = require('../config/database'); // Assuming a mysql2 connection pool is exported
 const { v4: uuidv4 } = require('uuid');
-
 
 const createInteractionType = async (req, res) => {
     const { name, icon_name } = req.body;

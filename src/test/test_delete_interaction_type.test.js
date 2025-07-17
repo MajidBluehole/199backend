@@ -1,6 +1,6 @@
 const request = require('supertest');
 const app = require('../../../app'); // Assuming your Express app is exported from here
-const db = require('../../../config/db'); // Assuming your db connection pool is exported from here
+const db = require('../config/database'); // Assuming your db connection pool is exported from here
 const { v4: uuidv4 } = require('uuid');
 
 // Mock the database module

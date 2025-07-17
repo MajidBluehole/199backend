@@ -1,6 +1,6 @@
 const request = require('supertest');
 const app = require('../../../app'); // Assuming your Express app is exported
-const db = require('../../../config/db'); // Assuming a centralized db module
+const db = require('../config/database'); // Assuming a centralized db module
 
 // Mock the database module
 jest.mock('../../../config/db');

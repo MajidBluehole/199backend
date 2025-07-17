@@ -4,7 +4,7 @@ const knowledgeContentRouter = require('../../../routes/v1/knowledge-base/conten
 const authMiddleware = require('../../../middleware/auth'); // Mockable auth middleware
 
 // Mock the database connection pool
-const db = require('../../../config/db'); // Assuming a db utility file
+const db = require('../config/database'); // Assuming a db utility file
 jest.mock('../../../config/db');
 
 // Mock the authentication middleware

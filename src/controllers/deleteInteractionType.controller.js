@@ -1,4 +1,4 @@
-const pool = require('../../config/db');
+const pool = require('../config/database');
 
 
 const deleteInteractionType = async (req, res) => {

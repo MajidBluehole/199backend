@@ -1,4 +1,4 @@
-const pool = require('../../config/db'); // Assuming a mysql2 promise-based pool is exported from db.js
+const pool = require('../config/database'); // Assuming a mysql2 promise-based pool is exported from db.js
 
 
 const updateKnowledgeContent = async (req, res) => {

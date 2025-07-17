@@ -27,7 +27,7 @@ const Setting = require("./setting")(sequelize, DataTypes);
 const StaticContent = require("./staticContent")(sequelize, DataTypes);
 const Subscriber = require("./subscriber")(sequelize, DataTypes);
 const Transaction = require("./transaction")(sequelize, DataTypes);
-const { Category, Faq } = require("./Faq_Category")(sequelize, DataTypes);
+const { Faq } = require("./Faq_Category")(sequelize, DataTypes);
 const Organization = require("./organization.model.js")(sequelize, DataTypes);
 const AiRecommendation = require("./aiRecommendation.model.js")(sequelize, DataTypes);
 const FeedbackReason = require("./feedbackReason.model.js")(sequelize, DataTypes);
@@ -42,14 +42,14 @@ const TimelineEvent = require("./timelineEvent.model.js")(sequelize, DataTypes);
 const FeedbackSubmission = require("./feedbackSubmission.model.js")(sequelize, DataTypes);
 const UserIntegration = require("./user_integration.model.js")(sequelize, DataTypes);
 const InteractionType = require("./interactionType.model.js")(sequelize, DataTypes);
-const Recommendation = require("./recommendation.model.ts")(sequelize, DataTypes);
+const Recommendation = require("./recommendation.model.js")(sequelize, DataTypes);
 const MasterCustomer = require("./masterCustomer.model.js")(sequelize, DataTypes);
 const FilterOption = require("./filterOption.model.js")(sequelize, DataTypes);
 const CustomFieldOption = require("./customFieldOption.model.js")(sequelize, DataTypes);
 const DataSource = require("./dataSource.model.js")(sequelize, DataTypes);
 const InsightModel = require("./insightModel.js")(sequelize, DataTypes);
 const Curation = require("./curation.model.js")(sequelize, DataTypes);
-const Tag = require("./tag.model.ts")(sequelize, DataTypes);
+const Tag = require("./tag.model.js")(sequelize, DataTypes);
 const InteractionTranscript = require("./interactionTranscript.model.js")(sequelize, DataTypes);
 const FeedbackTag = require("./feedbackTag.model.js")(sequelize, DataTypes);
 const RecommendationWeight = require("./recommendationWeight.model.js")(sequelize, DataTypes);
@@ -58,12 +58,12 @@ const Integration = require("./integration.model.js")(sequelize, DataTypes);
 const ContentHistory = require("./contentHistory.model.js")(sequelize, DataTypes);
 const FieldMapping = require("./fieldMapping.model.js")(sequelize, DataTypes);
 const InteractionParticipant = require("./interactionParticipant.model.js")(sequelize, DataTypes);
-const KnowledgeContent = require("./knowledgeContent.model.ts")(sequelize, DataTypes);
+const KnowledgeContent = require("./knowledgeContent.model.js")(sequelize, DataTypes);
 const CustomerSourceLink = require("./customerSourceLink.model.js")(sequelize, DataTypes);
-const CustomField = require("./customField.model.ts")(sequelize, DataTypes);
+const CustomField = require("./customField.model.js")(sequelize, DataTypes);
 const Feedback = require("./feedback.model.js")(sequelize, DataTypes);
 const ConnectedDataSource = require("./connectedDataSource.model.js")(sequelize, DataTypes);
-const FeedbackToTag = require("./feedbackToTag.model.ts")(sequelize, DataTypes);
+const FeedbackToTag = require("./feedbackToTag.model.js")(sequelize, DataTypes);
 
 // sequelize.sync({ alter: true })
 //   .then(() => console.log("Tables synced"))
@@ -81,6 +81,7 @@ StripePaidSubscriptionModel.belongsTo(User, {
 
 
 module.exports = {
+  sequelize,
   AiAnalysis,
   AiRecommendation,
   Announcement,

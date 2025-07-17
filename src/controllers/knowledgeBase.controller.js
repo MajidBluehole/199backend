@@ -1,5 +1,5 @@
-const db = require('../../config/db'); // Assuming a mysql2/promise connection pool
-const storageService = require('../../services/storageService'); // Assuming a service to handle S3/file storage
+const db = require('../config/database'); // Assuming a mysql2/promise connection pool
+// const storageService = require('../../services/storageService'); // Assuming a service to handle S3/file storage
 
 
 const deleteContent = async (req, res) => {
@@ -37,7 +37,7 @@ const deleteContent = async (req, res) => {
         // 3. Delete the file from the storage system (e.g., S3)
         if (content.file_path) {
             try {
-                await storageService.deleteFile(content.file_path);
+                // await storageService.deleteFile(content.file_path);
             } catch (storageError) {
                 console.error(`Failed to delete file from storage: ${content.file_path}`, storageError);
                 // Rollback transaction if file deletion fails, as it's a critical part of the operation

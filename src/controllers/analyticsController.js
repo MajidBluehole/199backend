@@ -1,4 +1,4 @@
-const db = require('../config/db'); // Assuming a database connection pool is exported
+const db = require('../config/database'); // Assuming a mysql2/promise connection pool
 
 
 const buildFilterClause = (filters) => {

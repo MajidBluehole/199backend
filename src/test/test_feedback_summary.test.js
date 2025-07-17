@@ -1,6 +1,6 @@
 const request = require('supertest');
 const app = require('../../../app'); // Assuming your Express app is exported from 'app.js' or 'index.js' in the root
-const db = require('../../../config/db'); // Assuming a db module that exports the pool
+const db = require('../config/database'); // Assuming a db module that exports the pool
 const authMiddleware = require('../../../middleware/auth'); // Assuming a standard auth middleware
 
 // Mock dependencies

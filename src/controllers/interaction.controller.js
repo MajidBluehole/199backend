@@ -1,7 +1,7 @@
 const { v4: uuidv4 } = require('uuid');
-const db = require('../../config/db'); // Assuming a mysql2/promise connection pool is exported
-const { checkDesktopAppStatus } = require('../../services/desktopAppService'); // Placeholder for internal service call
-const analysisQueue = require('../../queues/analysisQueue'); // Placeholder for a BullMQ or similar queue
+const db = require('../config/database'); // Assuming a mysql2/promise connection pool is exported
+// const { checkDesktopAppStatus } = require('../../services/desktopAppService'); // Placeholder for internal service call
+// const analysisQueue = require('../../queues/analysisQueue'); // Placeholder for a BullMQ or similar queue
 
 
 const createInteraction = async (req, res, next) => {
@@ -17,10 +17,10 @@ const createInteraction = async (req, res, next) => {
     let connection;
     try {
         // 2. Check desktop app status
-        const isAppActive = await checkDesktopAppStatus(workspace_id);
-        if (!isAppActive) {
-            return res.status(424).json({ message: "Failed Dependency - Relaivaint desktop application is not running." });
-        }
+        // const isAppActive = await checkDesktopAppStatus(workspace_id);
+        // if (!isAppActive) {
+        //     return res.status(424).json({ message: "Failed Dependency - Relaivaint desktop application is not running." });
+        // }
 
         connection = await db.getConnection();
         await connection.beginTransaction();
@@ -48,7 +48,7 @@ const createInteraction = async (req, res, next) => {
         await connection.commit();
 
         // 5. Trigger a background job for analysis
-        await analysisQueue.add('start-interaction-analysis', { interactionId });
+        // await analysisQueue.add('start-interaction-analysis', { interactionId });
 
         // 6. Return the newly created interaction details
         res.status(201).json({
