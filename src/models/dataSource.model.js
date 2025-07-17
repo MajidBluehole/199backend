@@ -1,17 +1,5 @@
-const { DataTypes, Model } = require('sequelize');
-
-module.exports = (sequelize) => {
-  class DataSource extends Model {
-    
-    static associate(models) {
-      DataSource.belongsTo(models.Organization, {
-        foreignKey: 'organizationId',
-        as: 'organization',
-      });
-    }
-  }
-
-  DataSource.init({
+module.exports = (sequelize, DataTypes) => {
+  const DataSource = sequelize.define('DataSource', {
     id: {
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV4,
@@ -84,6 +72,5 @@ module.exports = (sequelize) => {
       },
     ],
   });
-
   return DataSource;
 };

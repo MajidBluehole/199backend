@@ -1,9 +1,5 @@
-const { DataTypes, Model } = require('sequelize');
-
-module.exports = (sequelize) => {
-  class Organization extends Model {}
-
-  Organization.init({
+module.exports = (sequelize, DataTypes) => {
+  const Organization = sequelize.define('Organization', {
     organization_id: {
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV4,
@@ -27,6 +23,5 @@ module.exports = (sequelize) => {
     createdAt: 'created_at',
     updatedAt: false // Disable updatedAt if it's not in the schema
   });
-
   return Organization;
 };

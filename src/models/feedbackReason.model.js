@@ -1,9 +1,5 @@
-const { DataTypes, Model } = require('sequelize');
-const sequelize = require('../config/database'); // Assuming a central db config file
-
-class FeedbackReason extends Model {}
-
-FeedbackReason.init({
+module.exports = (sequelize, DataTypes) => {
+  const FeedbackReason = sequelize.define('FeedbackReason', {
   reasonId: {
     type: DataTypes.INTEGER,
     autoIncrement: true,
@@ -31,5 +27,5 @@ FeedbackReason.init({
   tableName: 'feedback_reasons',
   timestamps: false // No createdAt/updatedAt columns as per the definition
 });
-
-module.exports = FeedbackReason;
+  return FeedbackReason;
+};

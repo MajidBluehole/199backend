@@ -1,17 +1,5 @@
-const { Model, DataTypes } = require('sequelize');
-
-module.exports = (sequelize) => {
-  class FeedbackSubmission extends Model {
-    
-    static associate(models) {
-      // Assumes User, Recommendation, and FeedbackReason models exist
-      this.belongsTo(models.User, { foreignKey: 'userId', as: 'user' });
-      this.belongsTo(models.Recommendation, { foreignKey: 'recommendationId', as: 'recommendation' });
-      this.belongsTo(models.FeedbackReason, { foreignKey: 'reasonId', as: 'reason' });
-    }
-  }
-
-  FeedbackSubmission.init({
+module.exports = (sequelize, DataTypes) => {
+  const FeedbackSubmission = sequelize.define('FeedbackSubmission', {
     feedbackId: {
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV4,
@@ -85,6 +73,5 @@ module.exports = (sequelize) => {
     updatedAt: false, // Disables updatedAt as it's not in the schema
     underscored: true // Maps camelCase in the model to snake_case in the DB
   });
-
   return FeedbackSubmission;
 };

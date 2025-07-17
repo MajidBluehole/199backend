@@ -1,20 +1,5 @@
-const { Model, DataTypes } = require('sequelize');
-const sequelize = require('../config/database'); // Assuming sequelize instance is exported from here
-
-class User extends Model {
-  
-  static associate(models) {
-    // define association here
-    User.belongsTo(models.Workspace, {
-      foreignKey: 'workspaceId',
-      as: 'workspace',
-    });
-    // Example: User has many Feedback items
-    // User.hasMany(models.Feedback, { foreignKey: 'userId' });
-  }
-}
-
-User.init({
+module.exports = (sequelize, DataTypes) => {
+  const User = sequelize.define('User', {
   userId: {
     type: DataTypes.UUID,
     defaultValue: DataTypes.UUIDV4,
@@ -87,5 +72,5 @@ User.init({
   paranoid: true,   // Enables soft deletes by using deletedAt
   underscored: false, // Fields are explicitly mapped, so this is not strictly needed but good practice to be explicit
 });
-
-module.exports = User;
+  return User;
+};

@@ -1,18 +1,5 @@
-const { DataTypes, Model } = require('sequelize');
-
-module.exports = (sequelize) => {
-  class RecommendationWeight extends Model {
-    
-    static associate(models) {
-      // define association here
-      RecommendationWeight.belongsTo(models.Organization, {
-        foreignKey: 'organizationId',
-        as: 'organization',
-      });
-    }
-  }
-
-  RecommendationWeight.init({
+module.exports = (sequelize, DataTypes) => {
+  const RecommendationWeight = sequelize.define('RecommendationWeight', {
     id: {
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV4,
@@ -68,6 +55,5 @@ module.exports = (sequelize) => {
       },
     ],
   });
-
   return RecommendationWeight;
 };

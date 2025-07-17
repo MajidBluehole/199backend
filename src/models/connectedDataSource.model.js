@@ -1,11 +1,5 @@
-const { DataTypes, Model } = require('sequelize');
-const sequelize = require('../config/database'); // Assuming a sequelize instance is exported
-
-class ConnectedDataSource extends Model {
-  // You can define instance methods here
-}
-
-ConnectedDataSource.init({
+module.exports = (sequelize, DataTypes) => {
+  const ConnectedDataSource = sequelize.define('ConnectedDataSource', {
   id: {
     type: DataTypes.UUID,
     defaultValue: DataTypes.UUIDV4,
@@ -79,17 +73,5 @@ ConnectedDataSource.init({
     }
   ]
 });
-
-// Optional: Define associations if you have Organization and User models defined in Sequelize
-ConnectedDataSource.associate = (models) => {
-  ConnectedDataSource.belongsTo(models.Organization, {
-    foreignKey: 'organizationId',
-    as: 'organization'
-  });
-  ConnectedDataSource.belongsTo(models.User, {
-    foreignKey: 'createdByUserId',
-    as: 'creator'
-  });
+  return ConnectedDataSource;
 };
-
-module.exports = ConnectedDataSource;

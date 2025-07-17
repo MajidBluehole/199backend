@@ -1,22 +1,5 @@
-const { Model, DataTypes, Sequelize } = require('sequelize');
-
-// We need to grab the sequelize instance from our connection
-// This is a placeholder for your actual sequelize instance
-const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USER, process.env.DB_PASS, {
-    host: process.env.DB_HOST,
-    dialect: 'mysql'
-});
-
-class Interaction extends Model {
-  
-  static associate(models) {
-    Interaction.belongsTo(models.User, { foreignKey: 'user_id' });
-    Interaction.belongsTo(models.Workspace, { foreignKey: 'workspace_id' });
-    Interaction.belongsTo(models.Contact, { foreignKey: 'contact_id' });
-  }
-}
-
-Interaction.init({
+module.exports = (sequelize, DataTypes) => {
+  const Interaction = sequelize.define('Interaction', {
   interaction_id: {
     type: DataTypes.UUID,
     defaultValue: DataTypes.UUIDV4,
@@ -87,7 +70,7 @@ Interaction.init({
   created_at: {
     type: DataTypes.DATE,
     allowNull: false,
-    defaultValue: Sequelize.NOW
+    defaultValue: DataTypes.NOW
   }
 }, {
   sequelize,
@@ -97,5 +80,5 @@ Interaction.init({
   updatedAt: false, // Disables updatedAt as it's not in the schema
   createdAt: 'created_at' // Map the model's createdAt to the 'created_at' column
 });
-
-module.exports = Interaction;
+  return Interaction;
+};

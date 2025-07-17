@@ -1,18 +1,5 @@
-const { DataTypes, Model } = require('sequelize');
-
-module.exports = (sequelize) => {
-  class AiAnalysis extends Model {
-    
-    static associate(models) {
-      // Assumes an 'Interaction' model exists and is passed in the 'models' object
-      this.belongsTo(models.Interaction, {
-        foreignKey: 'interaction_id',
-        as: 'interaction',
-      });
-    }
-  }
-
-  AiAnalysis.init({
+module.exports = (sequelize, DataTypes) => {
+  const AiAnalysis = sequelize.define('AiAnalysis', {
     analysis_id: {
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV4,
@@ -51,6 +38,5 @@ module.exports = (sequelize) => {
     createdAt: 'created_at',
     updatedAt: 'updated_at',
   });
-
   return AiAnalysis;
 };

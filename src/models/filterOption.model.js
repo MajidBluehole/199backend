@@ -1,9 +1,5 @@
-const { DataTypes, Model } = require('sequelize');
-const sequelize = require('../config/database'); // Assuming a database configuration file
-
-class FilterOption extends Model {}
-
-FilterOption.init({
+module.exports = (sequelize, DataTypes) => {
+  const FilterOption = sequelize.define('FilterOption', {
   id: {
     type: DataTypes.UUID,
     defaultValue: DataTypes.UUIDV4,
@@ -40,5 +36,5 @@ FilterOption.init({
     }
   ]
 });
-
-module.exports = FilterOption;
+  return FilterOption;
+};

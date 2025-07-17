@@ -1,17 +1,5 @@
-const { DataTypes, Model } = require('sequelize');
-
-module.exports = (sequelize) => {
-  class InsightModel extends Model {
-    
-    static associate(models) {
-      InsightModel.belongsTo(models.Organization, {
-        foreignKey: 'organizationId',
-        as: 'organization',
-      });
-    }
-  }
-
-  InsightModel.init({
+module.exports = (sequelize, DataTypes) => {
+  const InsightModel = sequelize.define('InsightModel', {
     id: {
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV4,
@@ -71,6 +59,5 @@ module.exports = (sequelize) => {
       },
     ],
   });
-
   return InsightModel;
 };

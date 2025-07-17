@@ -1,23 +1,5 @@
-const { DataTypes, Model } = require('sequelize');
-
-
-module.exports = (sequelize) => {
-  class CustomerSourceLink extends Model {
-    
-    static associate(models) {
-      this.belongsTo(models.MasterCustomer, {
-        foreignKey: 'masterCustomerId',
-        as: 'masterCustomer',
-      });
-
-      this.belongsTo(models.ConnectedDataSource, {
-        foreignKey: 'connectedDataSourceId',
-        as: 'connectedDataSource',
-      });
-    }
-  }
-
-  CustomerSourceLink.init({
+module.exports = (sequelize, DataTypes) => {
+  const CustomerSourceLink = sequelize.define('CustomerSourceLink', {
     id: {
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV4,
@@ -72,6 +54,5 @@ module.exports = (sequelize) => {
       },
     ],
   });
-
   return CustomerSourceLink;
 };

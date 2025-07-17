@@ -1,18 +1,5 @@
-const { DataTypes, Model } = require('sequelize');
-
-
-module.exports = (sequelize) => {
-  class TimelineEvent extends Model {
-    
-    static associate(models) {
-      TimelineEvent.belongsTo(models.Organization, {
-        foreignKey: 'organization_id',
-        as: 'organization',
-      });
-    }
-  }
-
-  TimelineEvent.init({
+module.exports = (sequelize, DataTypes) => {
+  const TimelineEvent = sequelize.define('TimelineEvent', {
     event_id: {
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV4,
@@ -72,6 +59,5 @@ module.exports = (sequelize) => {
     ],
     comment: 'Aggregates events from all integrated systems for a unified customer timeline.',
   });
-
   return TimelineEvent;
 };

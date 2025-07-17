@@ -1,18 +1,5 @@
-const { DataTypes, Model } = require('sequelize');
-const sequelize = require('../config/database'); // Assuming a database configuration file
-
-class Keyword extends Model {
-  
-  static associate(models) {
-    // Define association to Organization model
-    this.belongsTo(models.Organization, {
-      foreignKey: 'organizationId',
-      as: 'organization',
-    });
-  }
-}
-
-Keyword.init({
+module.exports = (sequelize, DataTypes) => {
+  const Keyword = sequelize.define('Keyword', {
   id: {
     type: DataTypes.UUID,
     defaultValue: DataTypes.UUIDV4,
@@ -48,5 +35,5 @@ Keyword.init({
     },
   ],
 });
-
-module.exports = Keyword;
+  return Keyword;
+};

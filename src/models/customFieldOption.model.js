@@ -1,9 +1,5 @@
-const { DataTypes, Model } = require('sequelize');
-const sequelize = require('../config/database'); // Assuming a sequelize instance is exported from this path
-
-class CustomFieldOption extends Model {}
-
-CustomFieldOption.init({
+module.exports = (sequelize, DataTypes) => {
+  const CustomFieldOption = sequelize.define('CustomFieldOption', {
   id: {
     type: DataTypes.UUID,
     defaultValue: DataTypes.UUIDV4,
@@ -34,14 +30,5 @@ CustomFieldOption.init({
   tableName: 'custom_field_options',
   timestamps: false // No createdAt/updatedAt columns in the table definition
 });
-
-// It's a good practice to define associations, assuming a CustomField model exists
-// CustomFieldOption.associate = (models) => {
-//   CustomFieldOption.belongsTo(models.CustomField, {
-//     foreignKey: 'customFieldId',
-//     as: 'customField',
-//     onDelete: 'CASCADE'
-//   });
-// };
-
-module.exports = CustomFieldOption;
+  return CustomFieldOption;
+};

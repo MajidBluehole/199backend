@@ -1,18 +1,5 @@
-import { DataTypes, Model } from 'sequelize';
-import sequelize from '../config/database'; // Assuming a sequelize instance is exported from here
-
-class Integration extends Model {
-  
-  static associate(models) {
-    // This assumes an 'Organization' model is defined and passed in 'models'
-    this.belongsTo(models.Organization, {
-      foreignKey: 'organizationId',
-      as: 'organization',
-    });
-  }
-}
-
-Integration.init({
+module.exports = (sequelize, DataTypes) => {
+  const Integration = sequelize.define('Integration', {
   integrationId: {
     type: DataTypes.UUID,
     defaultValue: DataTypes.UUIDV4,
@@ -67,5 +54,5 @@ Integration.init({
     },
   ],
 });
-
-export default Integration;
+  return Integration;
+};

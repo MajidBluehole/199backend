@@ -1,9 +1,5 @@
-const { DataTypes, Model } = require('sequelize');
-const sequelize = require('../config/database'); // Assuming a database connection instance
-
-class ContentTag extends Model {}
-
-ContentTag.init({
+module.exports = (sequelize, DataTypes) => {
+  const ContentTag = sequelize.define('ContentTag', {
   content_id: {
     type: DataTypes.UUID,
     primaryKey: true,
@@ -40,5 +36,5 @@ ContentTag.init({
     },
   ],
 });
-
-module.exports = ContentTag;
+  return ContentTag;
+};

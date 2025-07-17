@@ -1,9 +1,5 @@
-const { DataTypes, Model } = require('sequelize');
-const sequelize = require('../config/database'); // Assuming you have a database config
-
-class InteractionParticipant extends Model {}
-
-InteractionParticipant.init({
+module.exports = (sequelize, DataTypes) => {
+  const InteractionParticipant = sequelize.define('InteractionParticipant', {
   interaction_id: {
     type: DataTypes.UUID,
     primaryKey: true,
@@ -34,5 +30,5 @@ InteractionParticipant.init({
   updatedAt: 'updated_at',
   comment: 'Join table for interactions and contacts (participants).'
 });
-
-module.exports = InteractionParticipant;
+  return InteractionParticipant;
+};

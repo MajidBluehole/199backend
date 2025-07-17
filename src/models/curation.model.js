@@ -1,20 +1,5 @@
-const { DataTypes, Model } = require('sequelize');
-
-
-module.exports = (sequelize) => {
-  class Curation extends Model {
-    
-    static associate(models) {
-      // Define association here
-      // Assuming a 'Content' model exists
-      this.belongsTo(models.Content, {
-        foreignKey: 'content_id',
-        as: 'content',
-      });
-    }
-  }
-
-  Curation.init({
+module.exports = (sequelize, DataTypes) => {
+  const Curation = sequelize.define('Curation', {
     curation_id: {
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV4,
@@ -51,6 +36,5 @@ module.exports = (sequelize) => {
     createdAt: false, // We don't have a created_at column
     updatedAt: 'updated_at', // Map the updatedAt field to the 'updated_at' column
   });
-
   return Curation;
 };

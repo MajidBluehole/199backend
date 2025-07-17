@@ -1,18 +1,5 @@
-const { DataTypes, Model } = require('sequelize');
-
-module.exports = (sequelize) => {
-  class Content extends Model {
-    
-    static associate(models) {
-      // define association here
-      this.belongsTo(models.User, { as: 'author', foreignKey: 'author_id' });
-      this.belongsTo(models.User, { as: 'submitter', foreignKey: 'submitted_by_id' });
-      this.belongsTo(models.User, { as: 'locker', foreignKey: 'locked_by_user_id' });
-      this.belongsTo(models.Category, { as: 'category', foreignKey: 'category_id' });
-    }
-  }
-
-  Content.init({
+module.exports = (sequelize, DataTypes) => {
+  const Content = sequelize.define('Content', {
     content_id: {
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV4,
@@ -109,6 +96,5 @@ module.exports = (sequelize) => {
         { name: 'idx_content_fulltext', fields: ['title', 'body'], type: 'FULLTEXT' }
     ]
   });
-
   return Content;
 };

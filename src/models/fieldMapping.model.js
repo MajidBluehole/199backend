@@ -1,17 +1,5 @@
-const { DataTypes, Model } = require('sequelize');
-
-module.exports = (sequelize) => {
-  class FieldMapping extends Model {
-    
-    static associate(models) {
-      FieldMapping.belongsTo(models.ConnectedDataSource, {
-        foreignKey: 'connectedDataSourceId',
-        as: 'connectedDataSource',
-      });
-    }
-  }
-
-  FieldMapping.init({
+module.exports = (sequelize, DataTypes) => {
+  const FieldMapping = sequelize.define('FieldMapping', {
     id: {
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV4,
@@ -59,6 +47,5 @@ module.exports = (sequelize) => {
     timestamps: true, // Sequelize will manage createdAt and updatedAt
     underscored: true, // Maps camelCase in the model to snake_case in the database
   });
-
   return FieldMapping;
 };

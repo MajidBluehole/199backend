@@ -1,18 +1,5 @@
-const { DataTypes, Model } = require('sequelize');
-
-module.exports = (sequelize) => {
-  class ConnectedSystem extends Model {
-    
-    static associate(models) {
-      // Assuming a 'Workspace' model exists and is passed in the 'models' object
-      this.belongsTo(models.Workspace, {
-        foreignKey: 'workspace_id',
-        as: 'workspace',
-      });
-    }
-  }
-
-  ConnectedSystem.init({
+module.exports = (sequelize, DataTypes) => {
+  const ConnectedSystem = sequelize.define('ConnectedSystem', {
     system_id: {
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV4,
@@ -53,6 +40,5 @@ module.exports = (sequelize) => {
       },
     ],
   });
-
   return ConnectedSystem;
 };

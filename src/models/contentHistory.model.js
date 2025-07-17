@@ -1,21 +1,5 @@
-const { DataTypes, Model } = require('sequelize');
-
-module.exports = (sequelize) => {
-  class ContentHistory extends Model {
-    
-    static associate(models) {
-      this.belongsTo(models.Content, {
-        foreignKey: 'content_id',
-        as: 'content',
-      });
-      this.belongsTo(models.User, {
-        foreignKey: 'change_author_id',
-        as: 'changeAuthor',
-      });
-    }
-  }
-
-  ContentHistory.init({
+module.exports = (sequelize, DataTypes) => {
+  const ContentHistory = sequelize.define('ContentHistory', {
     history_id: {
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV4,
@@ -68,6 +52,5 @@ module.exports = (sequelize) => {
       },
     ],
   });
-
   return ContentHistory;
 };

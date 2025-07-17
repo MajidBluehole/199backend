@@ -1,19 +1,5 @@
-import { DataTypes, Model, Sequelize } from 'sequelize';
-
-
-export default (sequelize) => {
-  class UserIntegration extends Model {
-    
-    static associate(models) {
-      // Define association to User model
-      this.belongsTo(models.User, {
-        foreignKey: 'user_id',
-        as: 'user',
-      });
-    }
-  }
-
-  UserIntegration.init({
+module.exports = (sequelize, DataTypes) => {
+  const UserIntegration = sequelize.define('UserIntegration', {
     integrationId: {
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV4,
@@ -75,6 +61,5 @@ export default (sequelize) => {
       },
     ],
   });
-
   return UserIntegration;
 };

@@ -1,14 +1,5 @@
-const { Model, DataTypes, Sequelize } = require('sequelize');
-
-// In a real application, the sequelize instance would be configured and
-// imported from a central database connection file.
-// const sequelize = require('../config/database');
-
-class Feedback extends Model {}
-
-
-const initFeedbackModel = (sequelize) => {
-  Feedback.init({
+module.exports = (sequelize, DataTypes) => {
+  const Feedback = sequelize.define('Feedback', {
     feedback_id: {
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV4,
@@ -48,7 +39,7 @@ const initFeedbackModel = (sequelize) => {
     created_at: {
         type: DataTypes.DATE,
         allowNull: false,
-        defaultValue: Sequelize.NOW
+        defaultValue: DataTypes.NOW
     }
   }, {
     sequelize,
@@ -64,8 +55,5 @@ const initFeedbackModel = (sequelize) => {
         // It is best managed through a raw SQL migration, as provided.
     ],
   });
-
   return Feedback;
 };
-
-module.exports = initFeedbackModel;

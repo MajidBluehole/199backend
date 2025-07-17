@@ -1,22 +1,5 @@
-const { Model, DataTypes } = require('sequelize');
-
-module.exports = (sequelize) => {
-  class Contact extends Model {
-    
-    static associate(models) {
-      // define association here
-      Contact.belongsTo(models.Workspace, {
-        foreignKey: 'workspaceId',
-        as: 'workspace',
-      });
-      Contact.belongsTo(models.User, {
-        foreignKey: 'userId',
-        as: 'owner',
-      });
-    }
-  }
-
-  Contact.init({
+module.exports = (sequelize, DataTypes) => {
+  const Contact = sequelize.define('Contact', {
     contactId: {
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV4,
@@ -92,6 +75,5 @@ module.exports = (sequelize) => {
     timestamps: true, // Sequelize will manage createdAt and updatedAt
     underscored: false, // Fields are explicitly named, so this is not strictly needed but good practice
   });
-
   return Contact;
 };

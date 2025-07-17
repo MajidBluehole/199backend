@@ -1,9 +1,5 @@
-const { DataTypes, Model } = require('sequelize');
-
-module.exports = (sequelize) => {
-  class InteractionType extends Model {}
-
-  InteractionType.init({
+module.exports = (sequelize, DataTypes) => {
+  const InteractionType = sequelize.define('InteractionType', {
     id: {
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV4,
@@ -63,6 +59,5 @@ module.exports = (sequelize) => {
         }
     ]
   });
-
   return InteractionType;
 };

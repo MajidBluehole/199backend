@@ -1,9 +1,5 @@
-import { DataTypes, Model } from 'sequelize';
-import sequelize from '../config/database'; // Assuming a sequelize instance is exported from here
-
-class Category extends Model {}
-
-Category.init({
+module.exports = (sequelize, DataTypes) => {
+  const Category = sequelize.define('Category', {
   categoryId: {
     type: DataTypes.UUID,
     defaultValue: DataTypes.UUIDV4,
@@ -40,5 +36,5 @@ Category.init({
   timestamps: true,
   underscored: true
 });
-
-export default Category;
+  return Category;
+};

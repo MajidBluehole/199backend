@@ -1,18 +1,5 @@
-const { DataTypes, Model } = require('sequelize');
-
-module.exports = (sequelize) => {
-  class MasterCustomer extends Model {
-    
-    static associate(models) {
-      // define association here
-      MasterCustomer.belongsTo(models.Organization, {
-        foreignKey: 'organization_id',
-        as: 'organization',
-      });
-    }
-  }
-
-  MasterCustomer.init({
+module.exports = (sequelize, DataTypes) => {
+  const MasterCustomer = sequelize.define('MasterCustomer', {
     id: {
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV4,
@@ -75,6 +62,5 @@ module.exports = (sequelize) => {
       },
     ],
   });
-
   return MasterCustomer;
 };

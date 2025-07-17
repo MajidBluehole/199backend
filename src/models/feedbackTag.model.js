@@ -1,9 +1,5 @@
-import { DataTypes, Model } from 'sequelize';
-import sequelize from '../config/database'; // Assuming a central sequelize instance
-
-class FeedbackTag extends Model {}
-
-FeedbackTag.init({
+module.exports = (sequelize, DataTypes) => {
+  const FeedbackTag = sequelize.define('FeedbackTag', {
   tagId: {
     type: DataTypes.INTEGER,
     primaryKey: true,
@@ -34,5 +30,5 @@ FeedbackTag.init({
   timestamps: true, // This enables the automatic management of createdAt and updatedAt
   underscored: true // This maps camelCase model fields to snake_case table columns
 });
-
-export default FeedbackTag;
+  return FeedbackTag;
+};

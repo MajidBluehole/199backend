@@ -1,18 +1,5 @@
-const { DataTypes, Model } = require('sequelize');
-
-module.exports = (sequelize) => {
-  class AiRecommendation extends Model {
-    
-    static associate(models) {
-      // define association here
-      AiRecommendation.belongsTo(models.Interaction, {
-        foreignKey: 'interaction_id',
-        as: 'interaction',
-      });
-    }
-  }
-
-  AiRecommendation.init({
+module.exports = (sequelize, DataTypes) => {
+  const AiRecommendation = sequelize.define('AiRecommendation', {
     recommendationId: {
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV4,
@@ -69,6 +56,5 @@ module.exports = (sequelize) => {
     timestamps: true, // Sequelize will manage createdAt and updatedAt
     underscored: true, // Use snake_case for column names in the database
   });
-
   return AiRecommendation;
 };
