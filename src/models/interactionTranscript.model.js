@@ -1,9 +1,5 @@
-const { DataTypes, Model } = require('sequelize');
-const sequelize = require('../config/database'); // Assuming a sequelize instance is exported from here
-
-class InteractionTranscript extends Model {}
-
-InteractionTranscript.init({
+module.exports = (sequelize, DataTypes) => {
+  const InteractionTranscript = sequelize.define('InteractionTranscript', {
   transcriptId: {
     type: DataTypes.UUID,
     defaultValue: DataTypes.UUIDV4,
@@ -73,5 +69,5 @@ InteractionTranscript.init({
     },
   ],
 });
-
-module.exports = InteractionTranscript;
+  return InteractionTranscript;
+};
