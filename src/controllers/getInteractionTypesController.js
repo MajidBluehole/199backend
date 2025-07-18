@@ -25,7 +25,7 @@ const getInteractionTypesController = {
 
             query += ` ORDER BY ${db.escapeId(sortColumn)} ${sortDirection}`;
 
-            const [interactionTypes] = await db.promise().query(query, queryParams);
+            const [interactionTypes] = await db.query(query, queryParams);
 
             res.status(200).json(interactionTypes);
 

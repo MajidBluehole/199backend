@@ -17,7 +17,7 @@ const getDesktopAppStatus = async (req, res) => {
     `;
 
     try {
-        const [integrations] = await db.promise().query(query, [userId]);
+        const [integrations] = await db.query(query, [userId]);
 
         if (integrations.length === 0) {
             // No desktop app integration has been set up for this user.
