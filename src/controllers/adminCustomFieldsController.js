@@ -7,7 +7,7 @@ const updateCustomField = async (req, res) => {
 
     let connection;
     try {
-        connection = await db.promise().getConnection();
+        connection = await db.getConnection();
         await connection.beginTransaction();
 
         // Step 1: Fetch the existing custom field and lock the row for update

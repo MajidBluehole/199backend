@@ -107,7 +107,7 @@ const removeTagFromFeedback = async (req, res) => {
     const { feedbackId, tagId } = req.params;
 
     try {
-        const [result] = await db.promise().query(
+        const [result] = await db.query(
             'DELETE FROM feedback_to_tags WHERE feedback_id = ? AND tag_id = ?',
             [feedbackId, tagId]
         );

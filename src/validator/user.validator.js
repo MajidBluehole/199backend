@@ -8,7 +8,7 @@ const userBaseSchema = {
   fullName: Joi.string().min(2).max(255).trim(),
   firstName: Joi.string().min(1).max(255).trim(),
   lastName: Joi.string().min(1).max(255).trim(),
-  workspaceId: Joi.string().guid({ version: 'uuidv4' }),
+  workspace_id: Joi.string().guid({ version: 'uuidv4' }),
   role: Joi.string().valid(...roles),
 };
 
@@ -40,6 +40,7 @@ const updateUserSchema = Joi.object({
 }).min(1); // Require at least one field to be updated
 
 module.exports = {
+  userBaseSchema,
   createUserSchema,
   updateUserSchema,
 };

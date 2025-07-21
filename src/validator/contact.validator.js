@@ -2,10 +2,9 @@ const Joi = require('joi');
 
 // Base schema with all possible fields and their rules
 const contactSchemaRules = {
-  workspaceId: Joi.string().uuid({
-    version: 'uuidv4'
-  }).messages({
-    'string.guid': 'Workspace ID must be a valid UUID'
+  workspace_id: Joi.string().uuid({
+    version: 'uuidv4',
+    message: 'workspace_id must be a valid UUID v4',
   }),
   userId: Joi.string().uuid({
     version: 'uuidv4'
@@ -29,14 +28,14 @@ const contactSchemaRules = {
 // Most fields are required.
 const createContactSchema = Joi.object({
   ...contactSchemaRules,
-  workspaceId: contactSchemaRules.workspaceId.required(),
+  workspace_id: contactSchemaRules.workspace_id.required(),
   userId: contactSchemaRules.userId.required(),
   fullName: contactSchemaRules.fullName.required(),
 });
 
 // Schema for updating an existing contact (PUT/PATCH request)
 // All fields are optional, as a client might only update one field.
-// Key identifiers like workspaceId and userId should not be updatable via this endpoint.
+// Key identifiers like workspace_id and userId should not be updatable via this endpoint.
 const updateContactSchema = Joi.object({
   fullName: contactSchemaRules.fullName,
   email: contactSchemaRules.email,
@@ -48,6 +47,7 @@ const updateContactSchema = Joi.object({
 }).min(1); // Require at least one field to be updated
 
 module.exports = {
+  contactSchemaRules,
   createContactSchema,
   updateContactSchema,
 };

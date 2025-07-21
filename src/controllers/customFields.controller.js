@@ -20,7 +20,7 @@ const createCustomField = async (req, res) => {
 
     let connection;
     try {
-        connection = await db.promise().getConnection();
+        connection = await db.getConnection();
         await connection.beginTransaction();
 
         // 1. Check for name uniqueness within the transaction to prevent race conditions

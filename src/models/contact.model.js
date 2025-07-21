@@ -7,7 +7,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       field: 'contact_id',
     },
-    workspaceId: {
+    workspace_id: {
       type: DataTypes.UUID,
       allowNull: false,
       field: 'workspace_id',

@@ -6,7 +6,7 @@ module.exports = (sequelize, DataTypes) => {
       autoIncrement: true,
       primaryKey: true,
     },
-    workspaceId: {
+    workspace_id: {
       type: DataTypes.UUID,
       allowNull: true,
       references: {
@@ -77,16 +77,17 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.BOOLEAN,
       defaultValue: false,
     },
+    googleId: DataTypes.STRING,
+    twitterId: DataTypes.STRING,
+    createdAt: DataTypes.DATE,
+    updatedAt: DataTypes.DATE,
   }, {
-    // tableName: "users",
-    // timestamps: true,
-
-  sequelize,
-  modelName: 'User',
-  tableName: 'users',
-  timestamps: true, // Enables createdAt and updatedAt
-  paranoid: true,   // Enables soft deletes by using deletedAt
-  underscored: false, // Fields are explicitly mapped, so this is not strictly needed but good practice to be explicit
+    sequelize,
+    modelName: 'User',
+    tableName: 'users',
+    timestamps: true, // Enables createdAt and updatedAt
+    paranoid: true,   // Enables soft deletes by using deletedAt
+    underscored: false, // Fields are explicitly mapped, so this is not strictly needed but good practice to be explicit
   });
   return User;
 };

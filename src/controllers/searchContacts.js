@@ -17,7 +17,7 @@ const searchContacts = async (req, res) => {
     const searchQuery = `%${q}%`;
 
     try {
-        const connection = await db.promise().getConnection();
+        const connection = await db.getConnection();
         try {
             const query = `
                 SELECT 
