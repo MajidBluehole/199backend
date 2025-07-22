@@ -533,7 +533,7 @@ exports.AdminSubscriptionList = async (req, res) => {
           model: User,
           as: 'user',
           where: whereUser,
-          attributes: ['id', 'email', 'firstName', 'lastName'],
+          attributes: ['user_id', 'email', 'firstName', 'lastName'],
           required: true, // Ensures only subscriptions with matching users are returned
         },
       ],
