@@ -12,7 +12,7 @@ const getFeedbackFilters = async (req, res) => {
       feedbackTypesResult,
       tagsResult
     ] = await Promise.all([
-      pool.query('SELECT user_id, full_name FROM users WHERE deleted_at IS NULL ORDER BY full_name ASC'),
+      pool.query('SELECT user_id, firstName FROM users WHERE deleted_at IS NULL ORDER BY firstName ASC'),
       pool.query('SELECT DISTINCT recommendation_category FROM feedback WHERE recommendation_category IS NOT NULL AND recommendation_category != \'\' ORDER BY recommendation_category ASC'),
       pool.query('SELECT DISTINCT feedback_type FROM feedback WHERE feedback_type IS NOT NULL AND feedback_type != \'\' ORDER BY feedback_type ASC'),
       pool.query('SELECT tag_id, tag_name FROM feedback_tags ORDER BY tag_name ASC')

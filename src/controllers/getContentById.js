@@ -36,7 +36,7 @@ const getContentById = async (req, res) => {
                 kc.created_at,
                 kc.updated_at,
                 u.user_id AS uploader_id,
-                u.full_name AS uploader_name,
+                u.firstName AS uploader_name,
                 GROUP_CONCAT(t.tag_name) AS tags
             FROM
                 knowledge_content kc

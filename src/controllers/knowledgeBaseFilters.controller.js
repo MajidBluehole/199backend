@@ -8,11 +8,11 @@ const getKnowledgeBaseFilters = async (req, res) => {
 
         // Query 2: Fetch distinct users who have uploaded content
         const getAuthorsQuery = `
-            SELECT DISTINCT u.user_id, u.full_name AS name
+            SELECT DISTINCT u.user_id, u.firstName AS name
             FROM users u
             JOIN knowledge_content kc ON u.user_id = kc.uploader_id
             WHERE u.deleted_at IS NULL
-            ORDER BY u.full_name;
+            ORDER BY u.firstName;
         `;
 
         // Query 3: Fetch all distinct tag names

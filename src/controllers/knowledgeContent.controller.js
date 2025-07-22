@@ -290,7 +290,7 @@ const handleUploadErrors = (err, req, res, next) => {
                 kc.created_at,
                 ${relevanceScore}
                 u.user_id as uploader_user_id,
-                u.full_name as uploader_name,
+                u.firstName as uploader_name,
                 GROUP_CONCAT(DISTINCT t.tag_name) as tags
             FROM
                 knowledge_content kc
@@ -302,7 +302,7 @@ const handleUploadErrors = (err, req, res, next) => {
                 tags t ON ct.tag_id = t.tag_id
             ${whereSql}
             GROUP BY
-                kc.content_id, u.user_id, u.full_name
+                kc.content_id, u.user_id, u.firstName
             ${orderByClause}
             LIMIT ?
             OFFSET ?

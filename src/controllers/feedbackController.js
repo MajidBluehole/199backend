@@ -92,7 +92,7 @@ exports.getFeedback = async (req, res, next) => {
                 f.status,
                 f.created_at,
                 u.user_id,
-                COALESCE(u.full_name, 'Deleted User') as userName,
+                COALESCE(u.firstName, 'Deleted User') as userName,
                 (SELECT GROUP_CONCAT(ft.tag_name SEPARATOR ', ') 
                  FROM feedback_to_tags ftt 
                  JOIN feedback_tags ft ON ftt.tag_id = ft.tag_id 
