@@ -31,7 +31,7 @@ exports.getAdminDashboard = async (req, res) => {
         where: { status: 'success' },
         order: [['createdAt', 'DESC']],
         limit: 5,
-        attributes: ['amountPaid', 'status', 'createdAt', 'userId']
+        attributes: ['amountPaid', 'status', 'createdAt', 'user_id']
       }) // Get recent successful transactions
     ]);
 
