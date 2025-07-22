@@ -41,6 +41,11 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: true,
       field: 'last_sync_at',
     },
+    lastHeartbeatAt: {
+      type: DataTypes.DATE,
+      allowNull: true,
+      field: 'last_heartbeat_at',
+    },
     // createdAt is handled by Sequelize's timestamps option
   }, {
     sequelize,
