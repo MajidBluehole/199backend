@@ -34,6 +34,7 @@ const { updateFeedbackStatus } = require('./controllers/feedbackStatusController
 const { updateKnowledgeContent } = require('./controllers/updateKnowledgeContent.js');
 const { uploadContent } = require('./controllers/knowledgeContent.controller.js');
 const { uploadMiddleware } = require('./controllers/knowledgeContent.controller.js');
+const { getAdminSummaryData } = require('./controllers/adminSummary.controller.js');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -113,6 +114,10 @@ app.post('/api/v1/admin/custom-fields', authenticate, createCustomField);
 app.put('/api/v1/admin/custom-fields/:id', authenticate, updateCustomField);
 app.get('/api/v1/admin/filter-options', authenticate, getGroupedFilterOptions);
 app.post('/api/v1/admin/:itemType/reorder', authenticate, reorderItems);
+
+// === Admin Summary Data ===
+app.get('/api/v1/content', authenticate, getAdminSummaryData);
+
 sequelize.sync({ alter: true }).then(async () => {
   console.log("✅ DB synced");
   // Seed countries
