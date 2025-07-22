@@ -123,7 +123,7 @@ exports.createUser = async (req, res) => {
 
 exports.updateUser = async (req, res) => {
   try {
-    const { id } = req.params;
+    const { user_id } = req.params;
     const update = req.body;
 
     if (update.password) {
@@ -131,14 +131,14 @@ exports.updateUser = async (req, res) => {
     }
 
     // Update user in the database
-    const result = await User.update(update, { where: { id: id } });
+    const result = await User.update(update, { where: { user_id: user_id } });
 
     if (result[0] === 0) {
       return res.status(404).json({ success: false, message: 'User not found or no changes made' });
     }
 
     // Fetch the updated user data
-    const updatedUser = await User.findOne({ where: { id: id }, attributes: { exclude: ['password'] } });
+    const updatedUser = await User.findOne({ where: { user_id: user_id }, attributes: { exclude: ['password'] } });
 
     res.status(200).json({ success: true, message: 'User updated', user: updatedUser });
   } catch (err) {
@@ -148,8 +148,8 @@ exports.updateUser = async (req, res) => {
 
 exports.DeleteUser = async (req, res) => {
   try {
-    const { id } = req.params;
-    await User.update({ isDeleted: true }, { where: { id } });
+    const { user_id } = req.params;
+    await User.update({ isDeleted: true }, { where: { user_id } });
     res.status(200).json({ success: true, message: 'User soft-deleted' });
   } catch (err) {
     console.error('MySQL DeleteUser error:', err);

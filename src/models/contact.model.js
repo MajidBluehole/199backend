@@ -7,14 +7,14 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       field: 'contact_id',
     },
-    userId: {
+    user_id: {
       type: DataTypes.BIGINT.UNSIGNED,
       allowNull: false,
-      field: 'user_id',
       references: {
-        model: 'users', // table name
+        model: 'users',
         key: 'user_id',
       },
+      field: 'user_id',
     },
     fullName: {
       type: DataTypes.STRING(255),

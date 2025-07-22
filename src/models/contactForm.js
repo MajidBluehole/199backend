@@ -35,14 +35,14 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.ENUM('open', 'in_progress', 'resolved', 'closed'),
       defaultValue: 'open'
     },
-    userId: {
+    user_id: {
       type: DataTypes.BIGINT.UNSIGNED,
+      allowNull: true,
       references: {
-        model: "users",
-        key: 'user_id'
+        model: 'users',
+        key: 'user_id',
       },
-      onDelete: 'SET NULL',
-      allowNull: true
+      field: 'user_id',
     },
     ipAddress: {
       type: DataTypes.STRING

@@ -47,7 +47,7 @@ exports.changePassword = async (req, res) => {
   try {
     const { currentPassword, newPassword } = req.body;
 
-    const user = await User.findByPk(req.user.id);
+    const user = await User.findByPk(req.user.user_id);
     if (!user) {
       return res.status(404).json({ success: false, message: 'User not found' });
     }
@@ -98,15 +98,15 @@ const sendPasswordChangedEmail = async (to, firstName) => {
 // DELETE /user/delete-account
 exports.deleteAccount = async (req, res) => {
   try {
-    const userId = req.user.id;
+    const user_id = req.user.user_id;
     const token = req.headers.authorization?.split(" ")[1];
 
-    if (!userId || !token) {
+    if (!user_id || !token) {
       return res.status(400).json({ message: "Invalid request" });
     }
 
     // Fetch user from DB using findByPk instead of findById
-    const user = await User.findByPk(userId);  // Corrected: findByPk instead of findById
+    const user = await User.findByPk(user_id);  // Corrected: findByPk instead of findById
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }

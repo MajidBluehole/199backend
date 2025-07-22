@@ -16,7 +16,7 @@ exports.submitContactMessage = async (req, res) => {
       subject,
       message,
       category,
-      userId: req.user?.id || null, // Sequelize usually uses `id` instead of `_id`
+      user_id: req.user?.user_id || null, // Sequelize usually uses `id` instead of `_id`
       ipAddress: req.ip,
       userAgent: req.headers['user-agent']
     });

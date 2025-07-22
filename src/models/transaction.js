@@ -5,7 +5,7 @@ module.exports = (sequelize, DataTypes) => {
       autoIncrement: true,
       primaryKey: true
     },
-    userId: {
+    user_id: {
       type: DataTypes.BIGINT.UNSIGNED,
       allowNull: false,
       references: {
@@ -97,7 +97,7 @@ module.exports = (sequelize, DataTypes) => {
     tableName: 'Transactions',
     timestamps: true,
     indexes: [
-      { fields: ['userId'] },
+      { fields: ['user_id'] },
       { fields: ['orderId'] },
       { fields: ['provider', 'status'] },
       { fields: ['paidAt'] }

@@ -88,8 +88,8 @@ StripeSubscriptionHistoriesModel.belongsTo(User, {
 });
 
 // AuthToken associations
-User.hasMany(AuthToken, { foreignKey: 'userId', as: 'authTokens' });
-AuthToken.belongsTo(User, { foreignKey: 'userId', as: 'user' });
+User.hasMany(AuthToken, { foreignKey: 'user_id', as: 'authTokens' });
+AuthToken.belongsTo(User, { foreignKey: 'user_id', as: 'user' });
 
 // Announcement associations
 Announcement.belongsTo(User, { foreignKey: 'createdBy', as: 'creator' });
@@ -98,21 +98,21 @@ User.hasMany(Announcement, { foreignKey: 'createdBy', as: 'createdAnnouncements'
 User.hasMany(Announcement, { foreignKey: 'updatedBy', as: 'editedAnnouncements' });
 
 // Contact associations
-Contact.belongsTo(User, { foreignKey: 'userId', as: 'user' });
-User.hasMany(Contact, { foreignKey: 'userId', as: 'contacts' });
+Contact.belongsTo(User, { foreignKey: 'user_id', as: 'user' });
+User.hasMany(Contact, { foreignKey: 'user_id', as: 'contacts' });
 
 // ContactForm associations
-ContactForm.belongsTo(User, { foreignKey: 'userId', as: 'user' });
-User.hasMany(ContactForm, { foreignKey: 'userId', as: 'contactForms' });
+ContactForm.belongsTo(User, { foreignKey: 'user_id', as: 'user' });
+User.hasMany(ContactForm, { foreignKey: 'user_id', as: 'contactForms' });
 
 // CrashReport associations
-CrashReport.belongsTo(User, { foreignKey: 'userId', as: 'user' });
-User.hasMany(CrashReport, { foreignKey: 'userId', as: 'crashReports' });
+CrashReport.belongsTo(User, { foreignKey: 'user_id', as: 'user' });
+User.hasMany(CrashReport, { foreignKey: 'user_id', as: 'crashReports' });
 
 // Invoice associations
-Invoice.belongsTo(User, { foreignKey: 'userId', as: 'user' });
+Invoice.belongsTo(User, { foreignKey: 'user_id', as: 'user' });
 Invoice.belongsTo(Transaction, { foreignKey: 'transactionId', as: 'transaction' });
-User.hasMany(Invoice, { foreignKey: 'userId', as: 'invoices' });
+User.hasMany(Invoice, { foreignKey: 'user_id', as: 'invoices' });
 Transaction.hasMany(Invoice, { foreignKey: 'transactionId', as: 'invoices' });
 
 // Country associations
@@ -120,13 +120,13 @@ Country.hasMany(User, { foreignKey: 'countryId', as: 'users' });
 User.belongsTo(Country, { foreignKey: 'countryId', as: 'country' });
 
 // LoginHistory associations
-LoginHistory.belongsTo(User, { foreignKey: 'userId', as: 'user' });
-User.hasMany(LoginHistory, { foreignKey: 'userId', as: 'loginHistories' });
+LoginHistory.belongsTo(User, { foreignKey: 'user_id', as: 'user' });
+User.hasMany(LoginHistory, { foreignKey: 'user_id', as: 'loginHistories' });
 
 // Notification associations
-Notification.belongsTo(User, { foreignKey: 'userId', as: 'recipient' });
+Notification.belongsTo(User, { foreignKey: 'user_id', as: 'recipient' });
 Notification.belongsTo(User, { foreignKey: 'createdBy', as: 'creator' });
-User.hasMany(Notification, { foreignKey: 'userId', as: 'receivedNotifications' });
+User.hasMany(Notification, { foreignKey: 'user_id', as: 'receivedNotifications' });
 User.hasMany(Notification, { foreignKey: 'createdBy', as: 'createdNotifications' });
 
 // StaticContent associations
@@ -134,12 +134,12 @@ StaticContent.belongsTo(User, { foreignKey: 'publishedBy', as: 'publisher' });
 User.hasMany(StaticContent, { foreignKey: 'publishedBy', as: 'publishedContent' });
 
 // Subscriber associations
-Subscriber.belongsTo(User, { foreignKey: 'userId', as: 'user' });
-User.hasMany(Subscriber, { foreignKey: 'userId', as: 'subscriptions' });
+Subscriber.belongsTo(User, { foreignKey: 'user_id', as: 'user' });
+User.hasMany(Subscriber, { foreignKey: 'user_id', as: 'subscriptions' });
 
 // Transaction associations
-Transaction.belongsTo(User, { foreignKey: 'userId', as: 'user' });
-User.hasMany(Transaction, { foreignKey: 'userId', as: 'transactions' });
+Transaction.belongsTo(User, { foreignKey: 'user_id', as: 'user' });
+User.hasMany(Transaction, { foreignKey: 'user_id', as: 'transactions' });
 
 // Interaction associations
 Interaction.belongsTo(User, { foreignKey: 'user_id', as: 'user' });

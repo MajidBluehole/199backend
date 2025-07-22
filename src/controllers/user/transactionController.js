@@ -6,7 +6,7 @@ const path = require('path');
 
 exports.getUserTransactions = async (req, res) => {
   try {
-    const userId = req.user.id;
+    const user_id = req.user.user_id;
     const page = parseInt(req.query.page) || 1;
     const limit = parseInt(req.query.limit) || 20;
     const skip = (page - 1) * limit;
@@ -19,7 +19,7 @@ exports.getUserTransactions = async (req, res) => {
       export: exportFormat
     } = req.query;
 
-    const filter = { userId };
+    const filter = { user_id };
 
     // Status filter
     if (status) {
@@ -56,7 +56,7 @@ exports.getUserTransactions = async (req, res) => {
 
     if (exportFormat === 'pdf') {
       const doc = new PDFDocument();
-      const tempPath = path.join(__dirname, `../temp/transactions-${userId}.pdf`);
+      const tempPath = path.join(__dirname, `../temp/transactions-${user_id}.pdf`);
       const stream = fs.createWriteStream(tempPath);
       doc.pipe(stream);
 
@@ -70,7 +70,7 @@ exports.getUserTransactions = async (req, res) => {
       doc.end();
 
       stream.on('finish', () => {
-        res.download(tempPath, `transactions-${userId}.pdf`, (err) => {
+        res.download(tempPath, `transactions-${user_id}.pdf`, (err) => {
           if (!err) fs.unlinkSync(tempPath);
         });
       });

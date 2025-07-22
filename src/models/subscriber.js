@@ -13,14 +13,14 @@ module.exports = (sequelize, DataTypes) => {
     fullName: {
       type: DataTypes.STRING
     },
-    userId: {
+    user_id: {
       type: DataTypes.BIGINT.UNSIGNED,
-      allowNull: true,
+      allowNull: false,
       references: {
         model: 'users',
-        key: 'user_id'
+        key: 'user_id',
       },
-      onDelete: 'SET NULL'
+      field: 'user_id',
     },
     source: {
       type: DataTypes.ENUM('website', 'popup', 'referral', 'manual', 'social', 'api'),
@@ -72,7 +72,7 @@ module.exports = (sequelize, DataTypes) => {
     indexes: [
       { fields: ['email'] },
       { fields: ['status'] },
-      { fields: ['userId'] },
+      { fields: ['user_id'] },
       { fields: ['createdAt'] }
     ]
   });

@@ -5,14 +5,14 @@ module.exports = (sequelize, DataTypes) => {
       autoIncrement: true,
       primaryKey: true
     },
-    userId: {
+    user_id: {
       type: DataTypes.BIGINT.UNSIGNED,
-      allowNull: true,
+      allowNull: false,
       references: {
         model: 'users',
-        key: 'user_id'
+        key: 'user_id',
       },
-      onDelete: 'SET NULL'
+      field: 'user_id',
     },
     title: {
       type: DataTypes.STRING(255),
@@ -74,7 +74,7 @@ module.exports = (sequelize, DataTypes) => {
     tableName: 'Notifications',
     timestamps: true,
     indexes: [
-      { fields: ['userId'] },
+      { fields: ['user_id'] },
       { fields: ['isRead'] },
       { fields: ['sentAt'] },
       { fields: ['type'] }

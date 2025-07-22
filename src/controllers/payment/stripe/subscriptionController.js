@@ -556,17 +556,17 @@ exports.AdminSubscriptionList = async (req, res) => {
 
 exports.UserSubscriptionList = async (req, res) => {
   try {
-    const userId = req.query.user_id;
+    const user_id = req.query.user_id;
     const page = parseInt(req.query.page) || 1; // Default to page 1
     const limit = parseInt(req.query.limit) || 10; // Default to 10 items per page
     const offset = (page - 1) * limit;
 
-    if (!userId) {
+    if (!user_id) {
       return res.status(400).json({ message: "Missing user_id in query parameters" });
     }
 
     const { count, rows } = await StripePaidSubscriptionModel.findAndCountAll({
-      where: { user_id: userId },
+      where: { user_id: user_id },
       limit,
       offset,
       order: [['created_at', 'DESC']],

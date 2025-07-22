@@ -4,7 +4,7 @@ const { Notification } = require('../../models');
 // GET /user/notifications?page=1
 exports.getUserNotifications = async (req, res) => {
   try {
-    const userId = req.user.id;  // Use user.id instead of _id for Sequelize
+    const user_id = req.user.user_id;  // Use user.id instead of _id for Sequelize
     const page = parseInt(req.query.page) || 1;
     const limit = 10;
     const offset = (page - 1) * limit;
@@ -12,7 +12,7 @@ exports.getUserNotifications = async (req, res) => {
     const notifications = await Notification.findAll({
       where: {
         [Sequelize.Op.or]: [
-          { userId: userId },
+          { user_id: user_id },
           { isBroadcast: true }
         ]
       },
@@ -24,7 +24,7 @@ exports.getUserNotifications = async (req, res) => {
     const total = await Notification.count({
       where: {
         [Sequelize.Op.or]: [
-          { userId: userId },
+          { user_id: user_id },
           { isBroadcast: true }
         ]
       }
@@ -47,11 +47,11 @@ exports.getUserNotifications = async (req, res) => {
 exports.markNotificationAsRead = async (req, res) => {
   try {
     const { id } = req.params;
-    const userId = req.user.id;
+    const user_id = req.user.user_id;
 
     const notification = await Notification.findOne({
       id: id,
-      $or: [{ userId: userId }, { isBroadcast: true }]
+      $or: [{ user_id: user_id }, { isBroadcast: true }]
     });
 
     if (!notification) {
@@ -74,11 +74,11 @@ exports.markNotificationAsRead = async (req, res) => {
 // PUT /user/notifications/read-all
 exports.markAllNotificationsAsRead = async (req, res) => {
   try {
-    const userId = req.user.id;
+    const user_id = req.user.user_id;
 
     const result = await Notification.updateMany(
       {
-        $or: [{ userId: userId }, { isBroadcast: true }],
+        $or: [{ user_id: user_id }, { isBroadcast: true }],
         isRead: false
       },
       {
