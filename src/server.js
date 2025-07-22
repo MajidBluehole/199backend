@@ -112,7 +112,7 @@ app.post('/api/v1/knowledge-base/content', authenticate, uploadMiddleware, handl
 app.get('/api/v1/admin/custom-fields', authenticate, getCustomFields);
 app.post('/api/v1/admin/custom-fields', authenticate, createCustomField);
 app.put('/api/v1/admin/custom-fields/:id', authenticate, updateCustomField);
-app.get('/api/v1/admin/filter-options', authenticate, getGroupedFilterOptions);
+app.get('/api/v1/admin/filter-options', authenticate, getGroupedFilterOptions.getFilterOptions);
 app.post('/api/v1/admin/:itemType/reorder', authenticate, reorderItems);
 
 // === Admin Summary Data ===
