@@ -21,6 +21,9 @@ exports.getDataSources = async (req, res) => {
       ],
       order: [['createdAt', 'DESC']]
     });
+    if (!dataSources || dataSources.length === 0) {
+      return res.status(404).json({ message: 'No data sources found for this organization.' });
+    }
     res.status(200).json(dataSources);
   } catch (err) {
     res.status(500).json({ message: 'Internal Server Error' });
