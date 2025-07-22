@@ -81,6 +81,11 @@ module.exports = (sequelize, DataTypes) => {
     twitterId: DataTypes.STRING,
     createdAt: DataTypes.DATE,
     updatedAt: DataTypes.DATE,
+    deletedAt: {
+      type: DataTypes.DATE,
+      allowNull: true,
+      field: 'deleted_at',
+    },
   }, {
     sequelize,
     modelName: 'User',
