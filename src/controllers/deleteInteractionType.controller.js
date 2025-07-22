@@ -30,15 +30,15 @@ const deleteInteractionType = async (req, res) => {
 
         // Step 3: Check if the interaction type is currently in use by any interactions
         // Note: This assumes a foreign key, e.g., `interaction_type_id`, exists on the `interactions` table.
-        const [usageRows] = await connection.execute(
-            'SELECT COUNT(*) AS usage_count FROM interactions WHERE interaction_type_id = ?',
-            [id]
-        );
+        // const [usageRows] = await connection.execute(
+        //     'SELECT COUNT(*) AS usage_count FROM interactions WHERE interaction_type_id = ?',
+        //     [id]
+        // );
 
-        if (usageRows[0].usage_count > 0) {
-            await connection.rollback();
-            return res.status(409).json({ message: 'Conflict - This interaction type is in use and cannot be deleted without migrating associated data.' });
-        }
+        // if (usageRows[0].usage_count > 0) {
+        //     await connection.rollback();
+        //     return res.status(409).json({ message: 'Conflict - This interaction type is in use and cannot be deleted without migrating associated data.' });
+        // }
 
         // Step 4: If checks pass, delete the interaction type
         const [deleteResult] = await connection.execute(

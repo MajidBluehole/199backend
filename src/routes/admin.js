@@ -7,6 +7,7 @@ router.use(authenticate);            // Must be logged in
 router.use(authorizeRoles('admin')); // Must be role "admin"
 const adminUserController = require('../controllers/admin/userManagement');
 const { addUsersValidation } = require('../middleware/validators/userValidators');
+const dataSourceManagement = require('../controllers/admin/dataSourceManagement');
 
 router.get('/dashboard', getAdminDashboard);
 // Profile Management
@@ -61,5 +62,10 @@ const {
 router.get('/crash-reports', getCrashReports);
 router.delete('/crash-reports/:id', deleteCrashReport);
 router.delete('/crash-reports', deleteMultipleCrashReports);
+
+// Data Source Management
+router.get('/config/data-sources', authenticate, dataSourceManagement.getDataSources);
+router.post('/config/data-sources', authenticate, dataSourceManagement.addDataSource);
+router.delete('/config/data-sources/:sourceId', authenticate, dataSourceManagement.deleteDataSource);
 
 module.exports = router;
