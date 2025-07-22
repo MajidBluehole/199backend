@@ -7,7 +7,7 @@ const db = require("./config/config");
 const { addTagsToFeedback } = require('./controllers/feedbackTag.controller.js');
 const { authenticate } = require('./middleware/auth');
 const { createCustomField } = require('./controllers/customFields.controller.js');
-const { createInteraction } = require('./controllers/interaction.controller.js');
+const { createInteraction, listInteractions } = require('./controllers/interaction.controller.js');
 const { createInteractionType } = require('./controllers/interactionTypes.controller.js');
 const { deleteContent } = require('./controllers/knowledgeBase.controller.js');
 const { deleteInteractionType } = require('./controllers/deleteInteractionType.controller.js');
@@ -35,6 +35,7 @@ const { updateKnowledgeContent } = require('./controllers/updateKnowledgeContent
 const { uploadContent } = require('./controllers/knowledgeContent.controller.js');
 const { uploadMiddleware } = require('./controllers/knowledgeContent.controller.js');
 const { getAdminSummaryData } = require('./controllers/adminSummary.controller.js');
+const { getPopularContent } = require('./controllers/knowledgeContent.controller.js');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -73,6 +74,7 @@ app.use("/api/faq", require("./routes/faq"));
 // app.get('/api/v1/admin/interaction-types', authenticate, getInteractionTypesController);
 // === Interactions ===
 app.post('/api/v1/interactions', authenticate, createInteraction);
+app.get('/api/v1/interactions', authenticate, listInteractions);
 app.get('/api/v1/admin/interaction-types', authenticate, getInteractionTypesController.handleRequest);
 app.post('/api/v1/admin/interaction-types', authenticate, createInteractionType);
 app.delete('/api/v1/admin/interaction-types/:id', authenticate, deleteInteractionType);
@@ -104,6 +106,9 @@ app.get('/api/v1/knowledge-base/content/:contentId', authenticate, getContentByI
 app.put('/api/v1/knowledge-base/content/:contentId', authenticate, updateKnowledgeContent);
 app.delete('/api/v1/knowledge-base/content/:contentId', authenticate, deleteContent);
 app.get('/api/v1/knowledge-base/content/:contentId/download', authenticate, getDownloadUrl);
+
+// Popular Content
+app.get('/api/v1/content/popular', authenticate, getPopularContent);
 
 // File upload-related routes (ensure middleware order is correct)
 app.post('/api/v1/knowledge-base/content', authenticate, uploadMiddleware, handleUploadErrors, uploadContent);

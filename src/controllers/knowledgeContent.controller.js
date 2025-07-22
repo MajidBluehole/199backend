@@ -4,6 +4,7 @@ const path = require('path');
 const fs = require('fs').promises;
 const db = require('../config/database'); // Assuming a mysql2/promise connection pool
 const pool = require('../config/database'); // Assuming a mysql2/promise connection pool
+const { Content } = require('../models');
 
 // --- Mock S3 Service (in a real app, this would be in its own file) ---
 const s3UploadService = {
@@ -341,9 +342,39 @@ const handleUploadErrors = (err, req, res, next) => {
     }
 };
 
+// GET /api/v1/content/popular
+const getPopularContent = async (req, res) => {
+    try {
+        const page = parseInt(req.query.page) || 1;
+        const limit = parseInt(req.query.limit) || 9;
+        const offset = (page - 1) * limit;
+        const sortBy = req.query.sortBy === 'popularity' ? 'view_count' : 'published_at';
+        const order = sortBy === 'view_count' ? [['view_count', 'DESC'], ['published_at', 'DESC']] : [['published_at', 'DESC']];
+
+        const { count, rows } = await Content.findAndCountAll({
+            where: { status: 'PUBLISHED' },
+            order,
+            limit,
+            offset
+        });
+
+        res.status(200).json({
+            success: true,
+            total: count,
+            page,
+            limit,
+            content: rows
+        });
+    } catch (error) {
+        console.error('Error fetching popular content:', error);
+        res.status(500).json({ success: false, message: 'Failed to fetch popular content' });
+    }
+};
+
 module.exports = {
     uploadContent,
     uploadMiddleware,
     handleUploadErrors,
-    searchKnowledgeContent
+    searchKnowledgeContent,
+    getPopularContent,
 };

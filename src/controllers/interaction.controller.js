@@ -2,6 +2,7 @@ const { v4: uuidv4 } = require('uuid');
 const db = require('../config/database'); // Assuming a mysql2/promise connection pool is exported
 // const { checkDesktopAppStatus } = require('../../services/desktopAppService'); // Placeholder for internal service call
 // const analysisQueue = require('../../queues/analysisQueue'); // Placeholder for a BullMQ or similar queue
+const { Interaction } = require('../models');
 
 
 const createInteraction = async (req, res, next) => {
@@ -65,7 +66,7 @@ const createInteraction = async (req, res, next) => {
         }
         console.error('Error creating interaction:', error);
         // Pass to a generic error handler middleware
-        next(error); 
+        next(error);
     } finally {
         if (connection) {
             connection.release();
@@ -73,6 +74,33 @@ const createInteraction = async (req, res, next) => {
     }
 };
 
+// List interactions with pagination
+const listInteractions = async (req, res, next) => {
+    try {
+        const page = parseInt(req.query.page) || 1;
+        const limit = parseInt(req.query.limit) || 10;
+        const offset = (page - 1) * limit;
+
+        const { count, rows } = await Interaction.findAndCountAll({
+            order: [['created_at', 'DESC']],
+            limit,
+            offset
+        });
+
+        res.status(200).json({
+            success: true,
+            total: count,
+            page,
+            limit,
+            interactions: rows
+        });
+    } catch (error) {
+        console.error('Error fetching interactions:', error);
+        res.status(500).json({ success: false, message: 'Failed to fetch interactions' });
+    }
+};
+
 module.exports = {
     createInteraction,
+    listInteractions,
 };
