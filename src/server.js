@@ -20,7 +20,7 @@ const { getFeedbackContext } = require('./controllers/getFeedbackContextControll
 const { getFeedbackFilters } = require('./controllers/getFeedbackFilters.js');
 const { getFeedbackReasons } = require('./controllers/feedbackReasonsController.js');
 const { getFeedbackSummary } = require('./controllers/analyticsController.js');
-const { getGroupedFilterOptions } = require('./controllers/filterOptions.controller.js');
+const { getFilterOptions } = require('./controllers/filterOptions.controller.js');
 const { getInteractionTypesController } = require('./controllers/getInteractionTypesController.js');
 const { getKnowledgeBaseFilters } = require('./controllers/knowledgeBaseFilters.controller.js');
 const { getSystemConnections } = require('./controllers/systemConnectionsController.js');
@@ -112,7 +112,7 @@ app.post('/api/v1/knowledge-base/content', authenticate, uploadMiddleware, handl
 app.get('/api/v1/admin/custom-fields', authenticate, getCustomFields);
 app.post('/api/v1/admin/custom-fields', authenticate, createCustomField);
 app.put('/api/v1/admin/custom-fields/:id', authenticate, updateCustomField);
-app.get('/api/v1/admin/filter-options', authenticate, getGroupedFilterOptions.getFilterOptions);
+app.get('/api/v1/admin/filter-options', authenticate, getFilterOptions);
 app.post('/api/v1/admin/:itemType/reorder', authenticate, reorderItems);
 
 // === Admin Summary Data ===
