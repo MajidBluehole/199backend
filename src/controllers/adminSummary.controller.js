@@ -3,13 +3,13 @@ const { Tag, Content, FeedbackSubmission, Curation, Category } = require('../mod
 // GET /api/v1/admin/summary-data
 const getAdminSummaryData = async (req, res) => {
   try {
-    // Fetch all data in parallel, ordered by last updated (desc)
+    // Fetch all data in parallel, using correct DB column names for ordering
     const [tags, content, feedbackSubmissions, curations, categories] = await Promise.all([
-      Tag.findAll({ order: [['updatedAt', 'DESC']] }),
-      Content.findAll({ order: [['updatedAt', 'DESC']] }),
-      FeedbackSubmission.findAll({ order: [['createdAt', 'DESC']] }), // fallback to createdAt if no updatedAt
-      Curation.findAll({ order: [['updatedAt', 'DESC']] }),
-      Category.findAll({ order: [['updatedAt', 'DESC']] }),
+      Tag.findAll({ order: [['updated_at', 'DESC']] }),
+      Content.findAll({ order: [['updated_at', 'DESC']] }),
+      FeedbackSubmission.findAll({ order: [['created_at', 'DESC']] }),
+      Curation.findAll({ order: [['updated_at', 'DESC']] }),
+      Category.findAll({ order: [['updated_at', 'DESC']] }),
     ]);
 
     res.status(200).json({
