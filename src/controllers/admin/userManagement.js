@@ -1,5 +1,5 @@
 const bcrypt = require('bcrypt');
-const { User } = require('../../models');
+const { User, Organization } = require('../../models');
 const { Op, fn, col, where } = require('sequelize');
 
 //GET /admin/users?page=2&limit=10&role=user&isActive=true&search=john
@@ -104,6 +104,7 @@ exports.createUser = async (req, res) => {
     if (existing) return res.status(409).json({ message: 'Email already in use' });
 
     const hashedPassword = await bcrypt.hash(password, 10);
+    const newOrg = await Organization.create({ name: firstName });
     const newUser = new User({
       firstName,
       lastName,
@@ -111,7 +112,8 @@ exports.createUser = async (req, res) => {
       password: hashedPassword,
       role,
       isVerified: true,
-      isActive: true
+      isActive: true,
+      organization_id: newOrg.organization_id
     });
 
     await newUser.save();

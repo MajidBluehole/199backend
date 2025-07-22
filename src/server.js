@@ -123,14 +123,19 @@ app.post('/api/v1/admin/:itemType/reorder', authenticate, reorderItems);
 // === Admin Summary Data ===
 app.get('/api/v1/content', authenticate, getAdminSummaryData);
 
-sequelize.sync({ alter: true }).then(async () => {
-  console.log("✅ DB synced");
-  // Seed countries
-  await seedCountries(Country);
 
-}).catch(err => {
-  console.error("❌ Error syncing DB:", err);
-});
+//temp off
+// sequelize.sync({ alter: true }).then(async () => {
+//   console.log("✅ DB synced");
+//   // Seed countries
+//   await seedCountries(Country);
+
+// }).catch(err => {
+//   console.error("❌ Error syncing DB:", err);
+// });
+// temp off
+
+
 // ✅ Health Check
 app.get("/", (req, res) => {
   res.status(200).json({ message: "Success" });

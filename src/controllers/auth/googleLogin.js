@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 const fetch = require('node-fetch');
-const { AuthToken, User } = require('../../models');
+const { AuthToken, User, Organization } = require('../../models');
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY); // Use your secret key from Stripe dashboard
 const bcrypt = require('bcrypt');
 
@@ -30,7 +30,7 @@ exports.googleLoginHandler = async (req, res) => {
 
         // Check or create user
         let user = await User.findOne({ where: { email: userEmail } });
-        if (!user || !user.isActive || !user.isVerified) {
+        if (!user.isActive || !user.isVerified) {
             return res.status(403).json({ message: 'User Not Found' });
         }
         // const lowercasedEmail = userEmail.toLowerCase();
@@ -49,6 +49,8 @@ exports.googleLoginHandler = async (req, res) => {
         const hashedPassword = await bcrypt.hash(dummyPassword, 10);
 
         if (!user) {
+            // Create organization first
+            const newOrg = await Organization.create({ name: profile.given_name || '' });
             user = new User({
                 email: userEmail,
                 firstName: profile.given_name || '',
@@ -57,6 +59,7 @@ exports.googleLoginHandler = async (req, res) => {
                 isVerified: true,
                 isActive: true,
                 password: hashedPassword,
+                organization_id: newOrg.organization_id,
             });
             await user.save();
         }

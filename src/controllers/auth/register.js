@@ -1,4 +1,4 @@
-const { User, Country } = require('../../models');
+const { User, Country, Organization } = require('../../models');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken'); // For potential immediate login after verification (optional)
 const crypto = require('crypto');
@@ -75,6 +75,9 @@ exports.registerUser = async (req, res) => {
             otpExpires = new Date(Date.now() + 10 * 60 * 1000); // 10 minutes
         }
 
+        // Create organization first
+        const newOrg = await Organization.create({ name: firstName });
+
         const newUser = await User.create({
             email,
             password: hashedPassword,
@@ -83,6 +86,7 @@ exports.registerUser = async (req, res) => {
             country_code,
             phoneNumber,
             countryId: countryId,
+            organization_id: newOrg.organization_id,
             verificationToken: phoneNumber ? null : verificationToken,
             verificationExpires: phoneNumber ? null : verificationExpires,
             isVerified,

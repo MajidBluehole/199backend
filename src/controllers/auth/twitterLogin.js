@@ -1,7 +1,7 @@
 const { OAuth } = require('oauth');
 const fetch = require('node-fetch');
 const jwt = require('jsonwebtoken');
-const { User } = require('../../models');
+const { User, Organization } = require('../../models');
 const bcrypt = require('bcrypt'); // To hash the password
 
 const consumerKey = process.env.TWITTER_API_KEY;
@@ -88,7 +88,8 @@ const twitterCallbackHandler = async (req, res) => {
             // Check if the user exists in the database
             let user = await User.findOne({ email: twitterUser.email });
             if (!user) {
-                // If user does not exist, create a new user in the database
+                // If user does not exist, create a new organization and user in the database
+                const newOrg = await Organization.create({ name: twitterUser.name });
                 const hashedPassword = await bcrypt.hash(`${twitterUser.name}@123`, 10);
                 user = await User.create({
                     email: twitterUser.email,
@@ -98,6 +99,7 @@ const twitterCallbackHandler = async (req, res) => {
                     password: hashedPassword,
                     isVerified: true,
                     isActive: true,
+                    organization_id: newOrg.organization_id,
                 });
             }
 
