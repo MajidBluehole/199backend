@@ -30,8 +30,10 @@ exports.googleLoginHandler = async (req, res) => {
 
         // Check or create user
         let user = await User.findOne({ where: { email: userEmail } });
-        if (!user.isActive || !user.isVerified) {
-            return res.status(403).json({ message: 'User Not Found' });
+        if (user) {
+            if (!user.isActive || !user.isVerified) {
+                return res.status(403).json({ message: 'User Not Found' });
+            }
         }
         // const lowercasedEmail = userEmail.toLowerCase();
         // let stripe_customer_id = null;
