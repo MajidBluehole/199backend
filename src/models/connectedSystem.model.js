@@ -6,12 +6,12 @@ module.exports = (sequelize, DataTypes) => {
       primaryKey: true,
       allowNull: false,
     },
-    workspace_id: {
+    organization_id: {
       type: DataTypes.UUID,
       allowNull: false,
       references: {
-        model: 'workspaces', // This is a reference to another model/table
-        key: 'workspace_id',
+        model: 'organizations', // This is a reference to another model/table
+        key: 'organization_id',
       },
     },
     system_type: {
@@ -35,8 +35,8 @@ module.exports = (sequelize, DataTypes) => {
     underscored: true, // Use snake_case for DB columns
     indexes: [
       {
-        name: 'idx_connected_systems_workspace_id',
-        fields: ['workspace_id'],
+        name: 'idx_connected_systems_organization_id',
+        fields: ['organization_id'],
       },
     ],
   });

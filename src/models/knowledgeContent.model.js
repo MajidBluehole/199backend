@@ -23,7 +23,7 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: true,
       },
       content_type: {
-        type: DataTypes.ENUM('Sales Sheet', 'Technical Doc', 'Case Study', 'Presentation', 'Other'),
+        type: DataTypes.ENUM('file', 'Sales Sheet', 'Technical Doc', 'Case Study', 'Presentation', 'Other'),
         allowNull: false,
       },
       file_name: {

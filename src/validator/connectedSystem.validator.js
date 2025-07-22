@@ -4,11 +4,11 @@ const SYSTEM_TYPES = ['SALESFORCE', 'HUBSPOT', 'GMAIL', 'OUTLOOK', 'ZENDESK', 'Z
 const STATUS_TYPES = ['CONNECTED', 'DISCONNECTED', 'ERROR', 'SYNCING'];
 
 const createConnectedSystemSchema = Joi.object({
-  workspace_id: Joi.string().uuid({ version: 'uuidv4' }).required()
+  organization_id: Joi.string().uuid({ version: 'uuidv4' }).required()
     .messages({
-      'string.base': 'Workspace ID must be a string.',
-      'string.guid': 'Workspace ID must be a valid UUIDv4.',
-      'any.required': 'Workspace ID is required.',
+      'string.base': 'Organization ID must be a string.',
+      'string.guid': 'Organization ID must be a valid UUIDv4.',
+      'any.required': 'Organization ID is required.',
     }),
   system_type: Joi.string().valid(...SYSTEM_TYPES).required()
     .messages({
@@ -29,7 +29,7 @@ const createConnectedSystemSchema = Joi.object({
 });
 
 const updateConnectedSystemSchema = Joi.object({
-  // workspace_id and system_type are typically immutable for a connection.
+  // organization_id and system_type are typically immutable for a connection.
   // Only status and sync time are allowed to be updated.
   status: Joi.string().valid(...STATUS_TYPES).optional()
     .messages({

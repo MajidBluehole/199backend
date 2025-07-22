@@ -8,8 +8,7 @@ jest.mock('../../../lib/db');
 jest.mock('../../../middleware/auth');
 
 const mockUser = {
-    id: 'user-uuid-1234',
-    workspace_id: 'ws-uuid-5678'
+    id: 'user-uuid-1234'
 };
 
 const mockContacts = [
@@ -59,8 +58,8 @@ describe('GET /api/v1/contacts/search', () => {
             // Verify the database was queried correctly
             expect(db.pool.query).toHaveBeenCalledTimes(1);
             expect(db.pool.query).toHaveBeenCalledWith(
-                expect.stringContaining('FROM contacts WHERE workspace_id = ?'),
-                [mockUser.workspace_id, queryParam, queryParam, queryParam, 10] // Default limit is 10
+                expect.stringContaining('FROM contacts WHERE user_id = ?'),
+                [mockUser.id, queryParam, queryParam, queryParam, 10] // Default limit is 10
             );
         });
 
@@ -79,7 +78,7 @@ describe('GET /api/v1/contacts/search', () => {
             expect(db.pool.query).toHaveBeenCalledTimes(1);
             expect(db.pool.query).toHaveBeenCalledWith(
                 expect.any(String),
-                [mockUser.workspace_id, queryParam, queryParam, queryParam, limit]
+                [mockUser.id, queryParam, queryParam, queryParam, limit]
             );
         });
 

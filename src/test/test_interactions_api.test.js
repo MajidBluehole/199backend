@@ -14,7 +14,7 @@ jest.mock('../../src/lib/mysql_connection');
 jest.mock('../../src/services/desktopAppService');
 jest.mock('../../src/services/jobQueue');
 jest.mock('../../src/middleware/auth', () => jest.fn((req, res, next) => {
-  req.user = { id: 'user-uuid-123', workspace_id: 'ws-uuid-456' };
+  req.user = { id: 'user-uuid-123' };
   next();
 }));
 
@@ -60,8 +60,8 @@ describe('POST /api/v1/interactions', () => {
       expect(db.query).toHaveBeenCalledTimes(2);
       // 1. Insert into interactions table
       expect(db.query).toHaveBeenCalledWith(
-        'INSERT INTO interactions (id, user_id, workspace_id, objective, status) VALUES (?, ?, ?, ?, ?)',
-        [expect.any(String), 'user-uuid-123', 'ws-uuid-456', requestBody.objective, 'pending_analysis']
+        'INSERT INTO interactions (id, user_id, objective, status) VALUES (?, ?, ?, ?)',
+        [expect.any(String), 'user-uuid-123', requestBody.objective, 'pending_analysis']
       );
       // 2. Insert into interaction_participants table
       expect(db.query).toHaveBeenCalledWith(

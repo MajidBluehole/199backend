@@ -10,11 +10,6 @@ const createInteractionSchema = Joi.object({
     'string.guid': 'User ID must be a valid UUID',
     'any.required': 'User ID is required'
   }),
-  workspace_id: Joi.string().uuid().required().messages({
-    'string.base': 'Workspace ID must be a string',
-    'string.guid': 'Workspace ID must be a valid UUID',
-    'any.required': 'Workspace ID is required'
-  }),
   contact_id: Joi.string().uuid().allow(null).messages({
     'string.guid': 'Contact ID must be a valid UUID'
   }),

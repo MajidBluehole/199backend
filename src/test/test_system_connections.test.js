@@ -8,7 +8,7 @@ jest.mock('../../src/database/mysql');
 jest.mock('../../src/middleware/auth');
 
 describe('GET /api/v1/system/connections', () => {
-  const mockWorkspaceId = 'ws-a1b2c3d4-e5f6-7890-1234-567890abcdef';
+  const mockOrganizationId = 'org-a1b2c3d4-e5f6-7890-1234-567890abcdef';
 
   beforeEach(() => {
     // Reset mocks before each test to ensure a clean state
@@ -17,7 +17,7 @@ describe('GET /api/v1/system/connections', () => {
     // By default, mock a successful authentication for all tests in this suite
     // This simulates a valid user being logged in.
     authMiddleware.mockImplementation((req, res, next) => {
-      req.user = { workspace_id: mockWorkspaceId };
+      req.user = { organization_id: mockOrganizationId };
       next();
     });
   });
@@ -38,15 +38,15 @@ describe('GET /api/v1/system/connections', () => {
     expect(response.headers['content-type']).toMatch(/json/);
     expect(response.body).toEqual(mockConnections);
 
-    // Verify that the database was queried with the correct workspace ID
+    // Verify that the database was queried with the correct organization ID
     expect(db.promise().query).toHaveBeenCalledTimes(1);
     expect(db.promise().query).toHaveBeenCalledWith(
-      'SELECT system_type, status FROM connected_systems WHERE workspace_id = ?',
-      [mockWorkspaceId]
+      'SELECT system_type, status FROM connected_systems WHERE organization_id = ?',
+      [mockOrganizationId]
     );
   });
 
-  test('should return 200 and an empty array if no connections are found for the workspace', async () => {
+  test('should return 200 and an empty array if no connections are found for the organization', async () => {
     // Mock the database to return an empty result set
     db.promise().query.mockResolvedValue([[]]);
 
@@ -58,8 +58,8 @@ describe('GET /api/v1/system/connections', () => {
     // Verify the database was still queried
     expect(db.promise().query).toHaveBeenCalledTimes(1);
     expect(db.promise().query).toHaveBeenCalledWith(
-      'SELECT system_type, status FROM connected_systems WHERE workspace_id = ?',
-      [mockWorkspaceId]
+      'SELECT system_type, status FROM connected_systems WHERE organization_id = ?',
+      [mockOrganizationId]
     );
   });
 

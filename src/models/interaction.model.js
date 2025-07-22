@@ -14,14 +14,6 @@ module.exports = (sequelize, DataTypes) => {
       key: 'user_id'
     }
   },
-  workspace_id: {
-    type: DataTypes.UUID,
-    allowNull: false,
-    references: {
-      model: 'workspaces',
-      key: 'workspace_id'
-    }
-  },
   contact_id: {
     type: DataTypes.UUID,
     allowNull: true,
@@ -35,7 +27,7 @@ module.exports = (sequelize, DataTypes) => {
     allowNull: false
   },
   status: {
-    type: DataTypes.ENUM('PENDING', 'ANALYZING', 'ACTIVE', 'COMPLETED', 'CANCELLED'),
+    type: DataTypes.ENUM('PENDING', 'ANALYZING', 'ACTIVE', 'COMPLETED', 'CANCELLED', 'pending_analysis'),
     allowNull: false,
     defaultValue: 'PENDING'
   },
@@ -45,15 +37,15 @@ module.exports = (sequelize, DataTypes) => {
   },
   source_service: {
     type: DataTypes.ENUM('SALESFORCE', 'HUBSPOT', 'ZENDESK', 'GMAIL', 'OUTLOOK', 'ZOOM', 'TEAMS', 'CALENDAR', 'RELAIVAINT_APP'),
-    allowNull: false
+    allowNull: true
   },
   interaction_type: {
     type: DataTypes.ENUM('CALL', 'EMAIL', 'MEETING', 'TICKET', 'NOTE'),
-    allowNull: false
+    allowNull: true
   },
   subject: {
     type: DataTypes.TEXT,
-    allowNull: false
+    allowNull: true
   },
   summary: {
     type: DataTypes.TEXT,
@@ -61,7 +53,7 @@ module.exports = (sequelize, DataTypes) => {
   },
   start_time: {
     type: DataTypes.DATE,
-    allowNull: false
+    allowNull: true
   },
   started_at: {
     type: DataTypes.DATE,

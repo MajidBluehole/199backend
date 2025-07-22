@@ -26,14 +26,9 @@ module.exports = (sequelize, DataTypes) => {
       field: 'recommendation_id'
     },
     ratingType: {
-      type: DataTypes.ENUM('thumbs', 'stars'),
+      type: DataTypes.ENUM('positive', 'negative'),
       allowNull: false,
       field: 'rating_type'
-    },
-    ratingValue: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      field: 'rating_value'
     },
     reasonId: {
       type: DataTypes.INTEGER,
@@ -54,9 +49,9 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: true
     },
     submissionStatus: {
-      type: DataTypes.ENUM('synced', 'pending_sync'),
+      type: DataTypes.ENUM('submitted', 'synced', 'pending_sync'),
       allowNull: false,
-      defaultValue: 'synced',
+      defaultValue: 'submitted',
       field: 'submission_status'
     },
     createdAt: {

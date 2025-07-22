@@ -7,7 +7,7 @@ const db = require('../config/database'); // Assuming a mysql2/promise connectio
 const createInteraction = async (req, res, next) => {
     const { participant_ids, objective } = req.body;
     // Assuming auth middleware populates req.user
-    const { user_id, workspace_id } = req.user;
+    const { user_id } = req.user;
 
     // 1. Validate input
     if (!objective || !participant_ids || !Array.isArray(participant_ids) || participant_ids.length === 0) {
@@ -17,7 +17,7 @@ const createInteraction = async (req, res, next) => {
     let connection;
     try {
         // 2. Check desktop app status
-        // const isAppActive = await checkDesktopAppStatus(workspace_id);
+        // const isAppActive = await checkDesktopAppStatus(organization_id);
         // if (!isAppActive) {
         //     return res.status(424).json({ message: "Failed Dependency - Relaivaint desktop application is not running." });
         // }
@@ -31,10 +31,10 @@ const createInteraction = async (req, res, next) => {
 
         // 3. Create a new record in the 'interactions' table
         const interactionQuery = `
-            INSERT INTO interactions (interaction_id, user_id, workspace_id, objective, status, created_at, started_at)
-            VALUES (?, ?, ?, ?, ?, ?, ?)
+            INSERT INTO interactions (interaction_id, user_id, objective, status, created_at, started_at)
+            VALUES (?, ?, ?, ?, ?, ?)
         `;
-        await connection.execute(interactionQuery, [interactionId, user_id, workspace_id, objective, interactionStatus, createdAt, createdAt]);
+        await connection.execute(interactionQuery, [interactionId, user_id, objective, interactionStatus, createdAt, createdAt]);
 
         // 4. Create records in the 'interaction_participants' join table
         if (participant_ids.length > 0) {

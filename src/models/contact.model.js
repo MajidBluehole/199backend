@@ -7,15 +7,6 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       field: 'contact_id',
     },
-    workspace_id: {
-      type: DataTypes.UUID,
-      allowNull: false,
-      field: 'workspace_id',
-      references: {
-        model: 'workspaces',
-        key: 'workspace_id',
-      }
-    },
     userId: {
       type: DataTypes.BIGINT.UNSIGNED,
       allowNull: false,

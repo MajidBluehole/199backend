@@ -6,14 +6,14 @@ module.exports = (sequelize, DataTypes) => {
       autoIncrement: true,
       primaryKey: true,
     },
-    workspace_id: {
+    organization_id: {
       type: DataTypes.UUID,
       allowNull: true,
       references: {
-        model: 'workspaces', // table name
-        key: 'workspace_id',
+        model: 'organizations', // table name
+        key: 'organization_id',
       },
-      field: 'workspace_id'
+      field: 'organization_id'
     },
     stripe_customer_id: {
       type: DataTypes.STRING,

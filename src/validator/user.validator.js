@@ -8,7 +8,7 @@ const userBaseSchema = {
   fullName: Joi.string().min(2).max(255).trim(),
   firstName: Joi.string().min(1).max(255).trim(),
   lastName: Joi.string().min(1).max(255).trim(),
-  workspace_id: Joi.string().guid({ version: 'uuidv4' }),
+  organization_id: Joi.string().guid({ version: 'uuidv4' }),
   role: Joi.string().valid(...roles),
 };
 

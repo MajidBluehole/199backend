@@ -68,7 +68,15 @@ const FeedbackToTag = require("./feedbackToTag.model.js")(sequelize, DataTypes);
 // sequelize.sync({ alter: true })
 //   .then(() => console.log("Tables synced"))
 //   .catch((err) => console.error("Error syncing tables:", err));
-// Assuming you load models into `db`
+
+// Organization associations
+Organization.hasMany(User, { foreignKey: 'organization_id', as: 'users' });
+User.belongsTo(Organization, { foreignKey: 'organization_id', as: 'organization' });
+
+Organization.hasMany(ConnectedSystem, { foreignKey: 'organization_id', as: 'connectedSystems' });
+ConnectedSystem.belongsTo(Organization, { foreignKey: 'organization_id', as: 'organization' });
+
+// Stripe associations
 StripePaidSubscriptionModel.belongsTo(User, {
   foreignKey: 'user_id',
   as: 'user',
@@ -79,7 +87,7 @@ StripeSubscriptionHistoriesModel.belongsTo(User, {
   as: 'user'
 });
 
-// Aithtoken associations
+// AuthToken associations
 User.hasMany(AuthToken, { foreignKey: 'userId', as: 'authTokens' });
 AuthToken.belongsTo(User, { foreignKey: 'userId', as: 'user' });
 
@@ -89,6 +97,9 @@ Announcement.belongsTo(User, { foreignKey: 'updatedBy', as: 'editor' });
 User.hasMany(Announcement, { foreignKey: 'createdBy', as: 'createdAnnouncements' });
 User.hasMany(Announcement, { foreignKey: 'updatedBy', as: 'editedAnnouncements' });
 
+// Contact associations
+Contact.belongsTo(User, { foreignKey: 'userId', as: 'user' });
+User.hasMany(Contact, { foreignKey: 'userId', as: 'contacts' });
 
 // ContactForm associations
 ContactForm.belongsTo(User, { foreignKey: 'userId', as: 'user' });
@@ -129,6 +140,12 @@ User.hasMany(Subscriber, { foreignKey: 'userId', as: 'subscriptions' });
 // Transaction associations
 Transaction.belongsTo(User, { foreignKey: 'userId', as: 'user' });
 User.hasMany(Transaction, { foreignKey: 'userId', as: 'transactions' });
+
+// Interaction associations
+Interaction.belongsTo(User, { foreignKey: 'user_id', as: 'user' });
+User.hasMany(Interaction, { foreignKey: 'user_id', as: 'interactions' });
+Interaction.belongsTo(Contact, { foreignKey: 'contact_id', as: 'contact' });
+Contact.hasMany(Interaction, { foreignKey: 'contact_id', as: 'interactions' });
 
 // Category and FAQ associations
 Category.hasMany(Faq, { foreignKey: 'categoryId', as: 'faqs' });

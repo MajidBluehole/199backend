@@ -3,10 +3,10 @@ const db = require('../config/database'); // Assuming a db connection pool modul
 
 const searchContacts = async (req, res) => {
     // Authentication middleware is assumed to have populated req.user
-    if (!req.user || !req.user.workspace_id) {
+    if (!req.user || !req.user.user_id) {
         return res.status(401).json({ message: 'Unauthorized - Authentication token is missing or invalid.' });
     }
-    const { workspace_id } = req.user;
+    const { id: user_id } = req.user;
     const { q } = req.query;
 
     if (!q) {
@@ -28,12 +28,12 @@ const searchContacts = async (req, res) => {
                     source_system 
                 FROM contacts 
                 WHERE 
-                    workspace_id = ? AND
+                    user_id = ? AND
                     (full_name LIKE ? OR email LIKE ? OR company_name LIKE ?)
                 LIMIT ?;
             `;
 
-            const [results] = await connection.query(query, [workspace_id, searchQuery, searchQuery, searchQuery, limit]);
+            const [results] = await connection.query(query, [user_id, searchQuery, searchQuery, searchQuery, limit]);
             res.status(200).json(results);
         } finally {
             connection.release();
