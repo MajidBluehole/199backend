@@ -21,6 +21,11 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       field: 'service_name',
     },
+    integration_type: {
+      type: DataTypes.STRING,
+      allowNull: true,
+      field: 'integration_type',
+    },
     accessTokenEncrypted: {
       type: DataTypes.TEXT,
       allowNull: false,
@@ -41,7 +46,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: true,
       field: 'last_sync_at',
     },
-    lastHeartbeatAt: {
+    last_heartbeat_at: {
       type: DataTypes.DATE,
       allowNull: true,
       field: 'last_heartbeat_at',
