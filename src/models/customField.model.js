@@ -10,9 +10,10 @@ const FIELD_TYPES = {
 module.exports = (sequelize, DataTypes) => {
   const CustomField = sequelize.define('CustomField', {
      id: {
-     type: DataTypes.BIGINT.UNSIGNED,
-     autoIncrement: true,
-     primaryKey: true,
+      type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV4,
+      primaryKey: true,
+      allowNull: false,
     },
     name: {
       type: DataTypes.STRING(255),
