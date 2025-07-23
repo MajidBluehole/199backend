@@ -4,7 +4,7 @@ const sendEmail = require('../../utils/sendEmail'); // utility for sending email
 
 exports.updateAdminProfile = async (req, res) => {
   try {
-    const adminId = req.user.id;
+    const adminId = req.user.user_id;
     const { firstName, lastName, phoneNumber, country } = req.body;
 
     const [updatedCount] = await User.update(
@@ -37,7 +37,7 @@ exports.changeAdminPassword = async (req, res) => {
   try {
     const { currentPassword, newPassword } = req.body;
 
-    const admin = await User.findByPk(req.user.id); // Sequelize style
+    const admin = await User.findByPk(req.user.user_id); // Sequelize style
     if (!admin) {
       return res.status(404).json({ message: 'Admin user not found' });
     }
