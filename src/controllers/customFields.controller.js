@@ -57,7 +57,7 @@ const createCustomField = async (req, res) => {
             ]);
 
             await connection.query(
-                'INSERT INTO custom_field_options (custom_field_id, value, display_order) VALUES ?',
+                'INSERT INTO custom_field_options (id, custom_field_id, value, display_order) VALUES ?',
                 [optionValues]
             );
             createdOptions = options;
