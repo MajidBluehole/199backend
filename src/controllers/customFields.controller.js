@@ -50,17 +50,13 @@ const createCustomField = async (req, res) => {
 
         // 4. If options are provided for relevant types, create them
         if ((field_type.toUpperCase() === 'DROPDOWN' || field_type.toUpperCase() === 'MULTI_SELECT') && options.length > 0) {
-            const optionValues = options.map((optionValue, index) => [
-                'UUID()', // Add UUID() for the id column
-                newCustomFieldId,
-                optionValue,
-                index + 1 // Use array index for display_order
-            ]);
-
-            await connection.query(
-                'INSERT INTO custom_field_options (id, custom_field_id, value, display_order) VALUES ?',
-                [optionValues]
-            );
+            for (let i = 0; i < options.length; i++) {
+                const optionValue = options[i];
+                await connection.execute(
+                    'INSERT INTO custom_field_options (id, custom_field_id, value, display_order) VALUES (UUID(), ?, ?, ?)',
+                    [newCustomFieldId, optionValue, i + 1]
+                );
+            }
             createdOptions = options;
         }
 
