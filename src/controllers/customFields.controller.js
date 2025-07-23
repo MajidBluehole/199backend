@@ -41,7 +41,7 @@ const createCustomField = async (req, res) => {
 
         // 3. Create the custom field record
         const [result] = await connection.execute(
-            'INSERT INTO custom_fields (name, label, field_type, is_deletable, display_order, created_at, updated_at) VALUES (?, ?, ?, ?, ?, NOW(), NOW())',
+            'INSERT INTO custom_fields (id, name, label, field_type, is_deletable, display_order, created_at, updated_at) VALUES (UUID(), ?, ?, ?, ?, ?, NOW(), NOW())',
             [name, label, field_type.toUpperCase(), true, nextOrder]
         );
 
