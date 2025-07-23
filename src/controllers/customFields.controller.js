@@ -51,6 +51,7 @@ const createCustomField = async (req, res) => {
         // 4. If options are provided for relevant types, create them
         if ((field_type.toUpperCase() === 'DROPDOWN' || field_type.toUpperCase() === 'MULTI_SELECT') && options.length > 0) {
             const optionValues = options.map((optionValue, index) => [
+                'UUID()', // Add UUID() for the id column
                 newCustomFieldId,
                 optionValue,
                 index + 1 // Use array index for display_order
